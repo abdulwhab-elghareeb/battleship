@@ -1,5 +1,5 @@
 export function createDOMElement(obj) {
-  if (!obj) throw new Error("I think you forgot to pass an object")
+  if (!obj) throw new Error("I think you forgot to pass an object");
 
   let createdElement;
 
