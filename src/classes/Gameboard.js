@@ -21,6 +21,14 @@ export class Gameboard {
     }
   }
 
+  placeShips() {
+    this.placeShip(5, [1, 1]);
+    this.placeShip(4, [1, 2]);
+    this.placeShip(3, [1, 3]);
+    this.placeShip(3, [1, 4]);
+    this.placeShip(2, [1, 5]);
+  }
+
   receiveAttack([x, y]) {
     if (this.#missedHits.has([x, y].toString())) return;
     if (this.#board[y][x]) return this.#board[y][x].hit();

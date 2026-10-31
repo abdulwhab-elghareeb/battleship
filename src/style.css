@@ -75,7 +75,7 @@ body {
   padding: 30px;
 }
 
-#board {
+.board {
   width: 800px;
   height: 800px;
 
@@ -83,7 +83,13 @@ body {
   grid-template-columns: repeat(10, 1fr);
 }
 
-#board > div {
+
+.board > div {
   outline: 1px solid pink;
   background-color: rgb(77, 77, 165);
+}
+
+
+div.ship {
+  background-color: rgb(69, 135, 157);
 }
