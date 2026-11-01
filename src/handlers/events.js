@@ -49,7 +49,6 @@ export function onRestartClick(e) {
     board.classList.remove("disabled");
   });
   document.querySelector(".result").textContent = "";
-  document.querySelector(".randomize").remove();
 
   const player1 = new Human();
   const computer = new Computer();
