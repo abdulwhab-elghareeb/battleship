@@ -67,21 +67,20 @@ h6 {
   isolation: isolate;
 }
 
-.board{
-  transition: all 0.2s;
-}
-
 body {
   height: 100vh;
-  display: flex;
-  justify-content: space-between;
 
-  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+
+  background-color: hsl(34, 78%, 92%);
 }
 
 .board {
-  width: 800px;
-  height: 800px;
+  width: 700px;
+  height: 700px;
 
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -106,7 +105,7 @@ div.hit {
   background-color: hsl(0, 100%, 32%);
 }
 
-div.sunk{
+div.sunk {
   background-color: hsl(0, 100%, 12%);
 }
 
@@ -131,4 +130,8 @@ button {
   position: absolute;
   top: 15%;
   left: 47%;
+}
+
+.randomize {
+  position: absolute;
 }
