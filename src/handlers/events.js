@@ -1,4 +1,8 @@
 import { renderPlayersBoard } from "../components/board.js";
+import { renderRestartBtn } from "../components/restartBtn.js";
+
+import { Human } from "../classes/Human.js";
+import { Computer } from "../classes/Computer.js";
 
 export function onAttack(e, attackingPlayer, toBeAttacked) {
   if (e.target.parentNode.className !== "board") return;
@@ -35,4 +39,22 @@ function checkWinCondition(player1, player2) {
   [...document.querySelectorAll(".player .board")].forEach((board) => {
     board.classList.add("disabled");
   });
+  renderRestartBtn(player1, player2);
+}
+
+export function onRestartClick(e) {
+  [...document.querySelectorAll(".player .board")].forEach((board) => {
+    board.classList.remove("disabled");
+  });
+  document.querySelector(".result").textContent = "";
+
+  const player1 = new Human();
+  player1.gameboard.placeShips();
+
+  const player2 = new Computer();
+  player2.gameboard.placeShips();
+
+  renderPlayersBoard(player1, player2);
+
+  e.target.remove();
 }
