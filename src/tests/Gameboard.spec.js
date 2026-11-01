@@ -21,11 +21,11 @@ describe("Gameboard class", () => {
   test("handles received attacks correctly", () => {
     testBoard.placeShip(2, [2, 1]);
     testBoard.receiveAttack([2, 1]);
-    testBoard.receiveAttack([3, 1]);
-    expect(testBoard.board[1][2].isSunk()).toBe(true);
+    testBoard.receiveAttack([2, 2]);
+    expect(testBoard.board[2][1].isSunk()).toBe(true);
 
-    testBoard.receiveAttack([5, 2]);
-    expect(testBoard.missedHits).toContain([5, 2].toString());
+    testBoard.receiveAttack([2, 5]);
+    expect(testBoard.missedHits).toContain([2, 5].toString());
   });
 
   test("chicks if all ships are sunk", () => {

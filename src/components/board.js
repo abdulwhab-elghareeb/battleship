@@ -1,21 +1,32 @@
+import { onAttack } from "../handlers/events.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
-function renderBoard(playerNumber, board) {
+function renderBoard(playerNumber, player) {
+  document.querySelector(`.player${playerNumber} .board`)?.remove();
+
+  const board = player.gameboard.board;
+  const missedHits = player.gameboard.missedHits;
+
   const gridContainer = createDOMElement({
     elemType: "div",
     className: "board",
     parent: document.querySelector(`.player${playerNumber}`),
+    event: { type: "click", callback: (e) => onAttack(e, player) },
   });
 
-  for (let y = 0; y < 10; y++) {
-    for (let x = 0; x < 10; x++) {
+  for (let row = 0; row < 10; row++) {
+    for (let col = 0; col < 10; col++) {
       const grid = createDOMElement({ elemType: "div", parent: gridContainer });
-      if (board[y][x]) grid.classList.add("ship");
+      grid.dataset.row = row;
+      grid.dataset.col = col;
+
+      if (board[row][col]) grid.classList.add("ship");
+      if (missedHits.has([row, col].toString())) grid.classList.add("missed");
     }
   }
 }
 
-export function renderPlayersBoard(player1Board, player2Board) {
-  if (player1Board) renderBoard(1, player1Board);
-  if (player2Board) renderBoard(2, player2Board);
+export function renderPlayersBoard(player1, player2) {
+  if (player1) renderBoard(1, player1);
+  if (player2) renderBoard(2, player2);
 }

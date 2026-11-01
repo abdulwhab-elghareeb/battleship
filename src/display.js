@@ -1,13 +1,10 @@
 import { Player } from "./classes/Player.js";
 import { renderPlayersBoard } from "./components/board.js";
 
-function playGame() {
-  const player1 = new Player("Player");
-  const player2 = new Player("CPU");
-  player1.gameboard.placeShips();
-  player2.gameboard.placeShips();
+const player1 = new Player("Player");
+player1.gameboard.placeShips();
 
-  renderPlayersBoard(player1.gameboard.board, player2.gameboard.board);
-}
+const player2 = new Player("CPU");
+player2.gameboard.placeShips();
 
-playGame();
+renderPlayersBoard(player1, player2);

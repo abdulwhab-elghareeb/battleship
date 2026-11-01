@@ -13,26 +13,26 @@ export class Gameboard {
     return this.#missedHits;
   }
 
-  placeShip(shipSize, [x, y]) {
+  placeShip(shipSize, [row, col]) {
     const ship = new Ship(shipSize);
 
     for (let i = 0; i < shipSize; i++) {
-      this.#board[y][x + i] = ship;
+      this.#board[row][col + i] = ship;
     }
   }
 
   placeShips() {
-    this.placeShip(5, [1, 1]);
-    this.placeShip(4, [1, 2]);
-    this.placeShip(3, [1, 3]);
-    this.placeShip(3, [1, 4]);
-    this.placeShip(2, [1, 5]);
+    this.placeShip(5, [2, 1]);
+    this.placeShip(4, [3, 2]);
+    this.placeShip(3, [4, 3]);
+    this.placeShip(3, [5, 4]);
+    this.placeShip(2, [6, 5]);
   }
 
-  receiveAttack([x, y]) {
-    if (this.#missedHits.has([x, y].toString())) return;
-    if (this.#board[y][x]) return this.#board[y][x].hit();
-    this.#missedHits.add([x, y].toString());
+  receiveAttack([row, col]) {
+    if (this.#missedHits.has([row, col].toString())) return;
+    if (this.#board[row][col]) return this.#board[row][col].hit();
+    this.#missedHits.add([row, col].toString());
   }
 
   areAllShipsSunk() {

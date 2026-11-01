@@ -81,15 +81,23 @@ body {
 
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+
+  cursor: crosshair;
 }
 
-
 .board > div {
-  outline: 1px solid pink;
+  border: 1px solid pink;
   background-color: rgb(77, 77, 165);
 }
 
-
 div.ship {
   background-color: rgb(69, 135, 157);
+}
+
+div.missed {
+  background-color: gray;
+}
+
+.disabled {
+  pointer-events: none;
 }

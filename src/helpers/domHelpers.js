@@ -29,6 +29,9 @@ export function createDOMElement(obj) {
   if (obj.cy) createdElement.setAttribute("cy", obj.cy);
   if (obj.cx) createdElement.setAttribute("cx", obj.cx);
   if (obj.required) createdElement.setAttribute("required", "");
-
+  if (obj.event)
+    createdElement.addEventListener(obj.event.type, obj.event.callback, {
+      ...obj.options,
+    });
   return createdElement;
 }
