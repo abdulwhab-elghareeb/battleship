@@ -17,16 +17,16 @@ export function onAttack(e, attackingPlayer, toBeAttacked) {
 
   if (!toBeAttacked.gameboard.isValidAttack(cord)) return;
   attackingPlayer.attackPlace(cord, toBeAttacked);
+  checkWinCondition(attackingPlayer, toBeAttacked);
 
   if (toBeAttacked.type === "CPU") {
     toBeAttacked.attackRandomPlace(attackingPlayer);
+    checkWinCondition(attackingPlayer, toBeAttacked);
   }
 
   attackedPlayerNumber === 2
     ? renderPlayersBoard(attackingPlayer, toBeAttacked)
     : renderPlayersBoard(toBeAttacked, attackingPlayer);
-
-  checkWinCondition(attackingPlayer, toBeAttacked);
 }
 
 function checkWinCondition(player1, player2) {
@@ -56,7 +56,7 @@ export function onRestartClick(e) {
 
   renderPlayersBoard(player1, computer);
   renderRandomizeBtn(player1);
-  renderStartBtn(computer, player1);
+  renderStartBtn(player1);
 
   e.target.remove();
 }

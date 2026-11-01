@@ -26,11 +26,18 @@ function renderBoard(playerNumber, player, against) {
       grid.dataset.row = row;
       grid.dataset.col = col;
 
-      if (board[row][col] && player.type === "Real") grid.classList.add("ship");
-      if (missedHits.has([row, col].toString())) grid.classList.add("missed");
-      if (directHits.has([row, col].toString())) grid.classList.add("hit");
-      if (board[row][col] && board[row][col].isSunk())
+      if (missedHits.has([row, col].toString())) {
+        grid.classList.add("missed");
+      }
+      if (directHits.has([row, col].toString())) {
+        grid.classList.add("hit");
+      }
+      if (board[row][col] && player.type === "Real") {
+        grid.classList.add("ship");
+      }
+      if (board[row][col] && board[row][col].isSunk()) {
         grid.classList.add("sunk");
+      }
     }
   }
 }
