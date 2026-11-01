@@ -105,3 +105,8 @@ div.hit {
 .disabled {
   pointer-events: none;
 }
+
+.result {
+  position: absolute;
+  left: 45%;
+}
