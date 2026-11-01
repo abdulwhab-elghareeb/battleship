@@ -4,6 +4,7 @@ export class Gameboard {
   // 10x10 board
   #board = [...new Array(10)].map(() => new Array(10).fill(0));
   #missedHits = new Set();
+  #directHits = new Set();
 
   get board() {
     return this.#board;
@@ -11,6 +12,10 @@ export class Gameboard {
 
   get missedHits() {
     return this.#missedHits;
+  }
+
+  get directHits() {
+    return this.#directHits;
   }
 
   placeShip(shipSize, [row, col]) {
@@ -31,8 +36,13 @@ export class Gameboard {
 
   receiveAttack([row, col]) {
     if (this.#missedHits.has([row, col].toString())) return;
-    if (this.#board[row][col]) return this.#board[row][col].hit();
-    this.#missedHits.add([row, col].toString());
+
+    if (this.#board[row][col]) {
+      this.#board[row][col].hit();
+      this.#directHits.add([row, col].toString());
+    } else {
+      this.#missedHits.add([row, col].toString());
+    }
   }
 
   areAllShipsSunk() {

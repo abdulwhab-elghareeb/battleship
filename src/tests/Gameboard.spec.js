@@ -23,6 +23,7 @@ describe("Gameboard class", () => {
     testBoard.receiveAttack([2, 1]);
     testBoard.receiveAttack([2, 2]);
     expect(testBoard.board[2][1].isSunk()).toBe(true);
+    expect(testBoard.directHits).toContain([2, 2].toString());
 
     testBoard.receiveAttack([2, 5]);
     expect(testBoard.missedHits).toContain([2, 5].toString());
