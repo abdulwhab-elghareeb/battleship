@@ -35,7 +35,7 @@ export class Gameboard {
   }
 
   receiveAttack([row, col]) {
-    if (this.#missedHits.has([row, col].toString())) return;
+    if (!this.isValidAttack([row, col])) return;
 
     if (this.#board[row][col]) {
       this.#board[row][col].hit();
@@ -53,5 +53,12 @@ export class Gameboard {
     }
 
     return true;
+  }
+
+  isValidAttack(cord) {
+    return (
+      !this.#missedHits.has(cord.toString()) &&
+      !this.#directHits.has(cord.toString())
+    );
   }
 }

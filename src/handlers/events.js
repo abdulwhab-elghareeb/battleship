@@ -1,23 +1,22 @@
 import { renderPlayersBoard } from "../components/board.js";
 
-export function onAttack(e, player) {
+export function onAttack(e, attackingPlayer, toBeAttacked) {
   if (e.target.parentNode.className !== "board") return;
 
   const target = e.target;
-  const playerNumber = target.closest(".player").className.includes("1")
+  const cord = [target.dataset.row, target.dataset.col];
+  const attackedPlayerNumber = target.closest(".player").className.includes("1")
     ? 1
     : 2;
 
-  player.gameboard.receiveAttack([target.dataset.row, target.dataset.col]);
+  if (!toBeAttacked.gameboard.isValidAttack(cord)) return;
+  attackingPlayer.attackPlace(cord, toBeAttacked);
 
-  playerNumber === 1
-    ? renderPlayersBoard(player)
-    : renderPlayersBoard(null, player);
+  if (toBeAttacked.type === "CPU") {
+    toBeAttacked.attackRandomPlace(attackingPlayer);
+  }
 
-  document
-    .querySelector(".player2")
-    .classList.toggle("disabled", playerNumber === 2);
-  document
-    .querySelector(".player1")
-    .classList.toggle("disabled", playerNumber === 1);
+  attackedPlayerNumber === 2
+    ? renderPlayersBoard(attackingPlayer, toBeAttacked)
+    : renderPlayersBoard(toBeAttacked, attackingPlayer);
 }

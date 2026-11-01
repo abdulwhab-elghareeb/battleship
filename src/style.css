@@ -98,6 +98,10 @@ div.missed {
   background-color: gray;
 }
 
+div.hit {
+  background-color: darkred;
+}
+
 .disabled {
   pointer-events: none;
 }

@@ -33,4 +33,12 @@ describe("Gameboard class", () => {
     expect(testBoard.areAllShipsSunk()).toBe(false);
     expect(new Gameboard().areAllShipsSunk()).toBe(true);
   });
+
+  test("chicks if a move is valid or not", () => {
+    const testGameboard = new Gameboard();
+    testGameboard.receiveAttack([1, 2]);
+
+    expect(testGameboard.isValidAttack([1, 2])).toBe(false);
+    expect(testGameboard.isValidAttack([1, 5])).toBe(true);
+  });
 });
