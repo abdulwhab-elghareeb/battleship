@@ -5,6 +5,7 @@ export class Gameboard {
   #board = [...new Array(10)].map(() => new Array(10).fill(0));
   #missedHits = new Set();
   #directHits = new Set();
+  #shipCount = 0;
 
   get board() {
     return this.#board;
@@ -18,20 +19,43 @@ export class Gameboard {
     return this.#directHits;
   }
 
+  get shipCount() {
+    return this.#shipCount;
+  }
+
   placeShip(shipSize, [row, col]) {
+    if (col + shipSize > 9) return;
     const ship = new Ship(shipSize);
+
+    for (let i = 0; i < shipSize; i++) {
+      if (this.#board[row][col + i]) return;
+    }
 
     for (let i = 0; i < shipSize; i++) {
       this.#board[row][col + i] = ship;
     }
+
+    this.#shipCount++;
   }
 
-  placeShips() {
-    this.placeShip(5, [2, 1]);
-    this.placeShip(4, [3, 2]);
-    this.placeShip(3, [4, 3]);
-    this.placeShip(3, [5, 4]);
-    this.placeShip(2, [6, 5]);
+  randomizeShips() {
+    this.#board = [...new Array(10)].map(() => new Array(10).fill(0));
+    this.#shipCount = 0;
+
+    const sizes = [6, 4, 3, 3, 2];
+    let oldShipCount = this.#shipCount;
+
+    while (this.#shipCount !== 5) {
+      const randomCord = [
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+      ];
+
+      this.placeShip(sizes[0], randomCord);
+
+      if (this.#shipCount > oldShipCount) sizes.shift();
+      oldShipCount = this.#shipCount;
+    }
   }
 
   receiveAttack([row, col]) {

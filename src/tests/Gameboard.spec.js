@@ -16,6 +16,10 @@ describe("Gameboard class", () => {
     testBoard.placeShip(6, [0, 0]);
     expect(testBoard.board[0][0]).toBeTruthy();
     expect(testBoard.board[0][6]).toBeFalsy();
+    testBoard.placeShip(6, [0, 9]);
+    expect(testBoard.board[0][9]).toBeFalsy();
+    testBoard.placeShip(4, [0, 5]);
+    expect(testBoard.board[0][7]).toBeFalsy();
   });
 
   test("handles received attacks correctly", () => {
@@ -40,5 +44,19 @@ describe("Gameboard class", () => {
 
     expect(testGameboard.isValidAttack([1, 2])).toBe(false);
     expect(testGameboard.isValidAttack([1, 5])).toBe(true);
+  });
+
+  test("shipCount property returns the number of ships on board", () => {
+    const testGameboard = new Gameboard();
+    testGameboard.placeShip(2, [1, 2]);
+    expect(testGameboard.shipCount).toBe(1);
+  });
+
+  test("able to place ships randomly", () => {
+    const testGameboard = new Gameboard();
+    testGameboard.randomizeShips();
+
+    expect(testGameboard.areAllShipsSunk()).toBe(false);
+    expect(testGameboard.shipCount).toBe(5);
   });
 });

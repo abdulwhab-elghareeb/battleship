@@ -1,7 +1,7 @@
 import { onAttack } from "../handlers/events.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
-function renderBoard(playerNumber, player, againstPlayer) {
+function renderBoard(playerNumber, player, against) {
   document.querySelector(`.player${playerNumber} .board`)?.remove();
 
   const board = player.gameboard.board;
@@ -11,13 +11,14 @@ function renderBoard(playerNumber, player, againstPlayer) {
   const gridContainer = createDOMElement({
     elemType: "div",
     className: "board",
-    parent: document.querySelector(`.player${playerNumber}`),
   });
+  document.querySelector(`.player${playerNumber} h1`).after(gridContainer);
 
-  if (player.type === "CPU")
+  if (player.type === "CPU") {
     gridContainer.addEventListener("click", (e) =>
-      onAttack(e, againstPlayer, player),
+      onAttack(e, against, player),
     );
+  }
 
   for (let row = 0; row < 10; row++) {
     for (let col = 0; col < 10; col++) {

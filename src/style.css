@@ -111,13 +111,16 @@ div.hit {
   left: 45%;
 }
 
-.restart {
-  position: absolute;
-  top: 15%;
-  left: 47%;
-
+button {
   width: 120px;
   height: 35px;
 
   cursor: pointer;
+}
+
+.restart,
+.start {
+  position: absolute;
+  top: 15%;
+  left: 47%;
 }

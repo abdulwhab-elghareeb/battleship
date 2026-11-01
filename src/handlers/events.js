@@ -3,6 +3,8 @@ import { renderRestartBtn } from "../components/restartBtn.js";
 
 import { Human } from "../classes/Human.js";
 import { Computer } from "../classes/Computer.js";
+import { renderRandomizeBtn } from "../components/randomizeBtn.js";
+import { renderStartBtn } from "../components/startBtn.js";
 
 export function onAttack(e, attackingPlayer, toBeAttacked) {
   if (e.target.parentNode.className !== "board") return;
@@ -39,7 +41,7 @@ function checkWinCondition(player1, player2) {
   [...document.querySelectorAll(".player .board")].forEach((board) => {
     board.classList.add("disabled");
   });
-  renderRestartBtn(player1, player2);
+  renderRestartBtn(player1);
 }
 
 export function onRestartClick(e) {
@@ -47,14 +49,29 @@ export function onRestartClick(e) {
     board.classList.remove("disabled");
   });
   document.querySelector(".result").textContent = "";
+  document.querySelector(".randomize").remove();
 
   const player1 = new Human();
-  player1.gameboard.placeShips();
+  const computer = new Computer();
+  computer.gameboard.randomizeShips();
 
-  const player2 = new Computer();
-  player2.gameboard.placeShips();
-
-  renderPlayersBoard(player1, player2);
+  renderPlayersBoard(player1, computer);
+  renderRandomizeBtn(player1);
+  renderStartBtn(computer, player1);
 
   e.target.remove();
+}
+
+export function onStartClick(e, player) {
+  const randomizeBtn = document.querySelector(".randomize");
+  if (player.gameboard.shipCount === 0) randomizeBtn.click();
+
+  randomizeBtn.remove();
+  document.querySelector(".result").textContent = "";
+  e.target.remove();
+}
+
+export function onRandomizeClick(player1) {
+  player1.gameboard.randomizeShips();
+  renderPlayersBoard(player1);
 }
