@@ -67,6 +67,10 @@ h6 {
   isolation: isolate;
 }
 
+.board{
+  transition: all 0.2s;
+}
+
 body {
   height: 100vh;
   display: flex;
@@ -99,7 +103,11 @@ div.missed {
 }
 
 div.hit {
-  background-color: darkred;
+  background-color: hsl(0, 100%, 32%);
+}
+
+div.sunk{
+  background-color: hsl(0, 100%, 12%);
 }
 
 .disabled {
