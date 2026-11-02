@@ -66,16 +66,23 @@ h6 {
 #__next {
   isolation: isolate;
 }
-
 body {
   height: 100vh;
+  background-color: hsl(34, 78%, 92%);
+}
 
+body.main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   justify-items: center;
+}
 
-  background-color: hsl(34, 78%, 92%);
+body.mode {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .player {
@@ -97,7 +104,7 @@ body {
   border: 1px solid pink;
   background-color: rgb(77, 77, 165);
 
-  &:hover{
+  &:hover {
     opacity: 80%;
   }
 }
@@ -172,4 +179,14 @@ button {
 .drag-ships {
   height: 57px;
   background-color: rgb(69, 135, 157);
+}
+
+.mode-select > h1 {
+  font-size: 28px;
+  text-align: center;
+}
+
+.mode-select > div:has(> button) {
+  display: flex;
+  gap: 16px;
 }
