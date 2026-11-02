@@ -1,10 +1,11 @@
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderMainMarkup() {
-  document.body.replaceChildren();
-  document.body.className = "main";
+  const mainContainer = document.querySelector("#main-container");
+  mainContainer.replaceChildren();
+  mainContainer.className = "main";
 
-  document.body.append(
+  mainContainer.append(
     createDOMElement({
       elemType: "h1",
       className: "result",

@@ -8,7 +8,7 @@ export function renderRestartBtn() {
     elemType: "button",
     className: "restart",
     textContent: "Restart",
-    parent: document.body,
+    parent: document.querySelector("#main-container"),
     event: { type: "click", callback: onRestartClick },
   });
 }
