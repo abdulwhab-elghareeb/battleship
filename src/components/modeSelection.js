@@ -1,14 +1,15 @@
-import { loadRegularMode } from "../handlers/modeHandlers.js";
+import {  loadRegularMode } from "../handlers/modeHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderModeSelection() {
-  document.body.replaceChildren();
-  document.body.className = "mode";
+  const mainContainer = document.querySelector("#main-container");
+  mainContainer.replaceChildren();
+  mainContainer.className = "mode";
 
   createDOMElement({
     elemType: "div",
     className: "mode-select",
-    parent: document.body,
+    parent: mainContainer,
     children: [
       createDOMElement({
         elemType: "h1",

@@ -1,11 +1,11 @@
 import { renderPlayersBoard } from "../components/board.js";
 import { renderRestartBtn } from "../components/restartBtn.js";
-
 import { Human } from "../classes/Human.js";
 import { Computer } from "../classes/Computer.js";
 import { renderRandomizeBtn } from "../components/randomizeBtn.js";
 import { renderStartBtn } from "../components/startBtn.js";
 import { renderDragContainer } from "../components/dragContainer.js";
+import { gameState } from "../gameState.js";
 
 export function onAttack(e, attackingPlayer, toBeAttacked) {
   if (e.target.parentNode.className !== "board") return;
@@ -63,7 +63,7 @@ export function onRestartClick(e) {
   e.target.remove();
 }
 
-export function onStartClick(e, player) {
+export function onStartClick(e, player, computer) {
   const randomizeBtn = document.querySelector(".randomize");
   if (player.gameboard.shipCount === 0) randomizeBtn.click();
   else if (player.gameboard.shipCount < 5) return;
@@ -72,6 +72,9 @@ export function onStartClick(e, player) {
   document.querySelector(".drag-container").remove();
   document.querySelector(".result").textContent = "";
   e.target.remove();
+
+  gameState.isGameStarted = true;
+  renderPlayersBoard(player, computer);
 }
 
 export function onRandomizeClick(player1) {

@@ -1,6 +1,7 @@
 import { onAttack } from "../handlers/events.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 import { applyDragAndDrop } from "../handlers/dragAndDrop.js";
+import { gameState } from "../gameState.js";
 
 function renderBoard(playerNumber, player, against) {
   document.querySelector(`.player${playerNumber} .board`)?.remove();
@@ -15,11 +16,13 @@ function renderBoard(playerNumber, player, against) {
   });
   document.querySelector(`.player${playerNumber} h1`).after(gridContainer);
 
-  if (player.type === "CPU") {
+  if (player.type === "CPU" && gameState.isGameStarted) {
     gridContainer.addEventListener("click", (e) =>
       onAttack(e, against, player),
     );
-  } else {
+  }
+
+  if (player.type === "Real") {
     applyDragAndDrop(player);
   }
 
