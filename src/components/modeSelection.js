@@ -1,6 +1,10 @@
+import { loadRegularMode } from "../handlers/modeHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderModeSelection() {
+  document.body.replaceChildren();
+  document.body.className = "mode";
+
   createDOMElement({
     elemType: "div",
     className: "mode-select",
@@ -20,6 +24,7 @@ export function renderModeSelection() {
           createDOMElement({
             elemType: "button",
             textContent: "Player vs CPU",
+            event: { type: "click", callback: loadRegularMode },
           }),
         ],
       }),
