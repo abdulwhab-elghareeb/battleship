@@ -1,5 +1,6 @@
 import { onAttack } from "../handlers/events.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
+import { applyDragAndDrop } from "../handlers/dragAndDrop.js";
 
 function renderBoard(playerNumber, player, against) {
   document.querySelector(`.player${playerNumber} .board`)?.remove();
@@ -18,6 +19,8 @@ function renderBoard(playerNumber, player, against) {
     gridContainer.addEventListener("click", (e) =>
       onAttack(e, against, player),
     );
+  } else {
+    applyDragAndDrop(player);
   }
 
   for (let row = 0; row < 10; row++) {

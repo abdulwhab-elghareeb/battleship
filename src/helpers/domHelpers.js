@@ -16,6 +16,11 @@ export function createDOMElement(obj) {
   if (obj.className) createdElement.className = obj.className;
   if (obj.id) createdElement.setAttribute("id", obj.id);
   if (obj.dataId) createdElement.dataset.id = obj.dataId;
+  if (obj.data) {
+    for (const [key, value] of Object.entries(obj.data)) {
+      createdElement.dataset[key] = value;
+    }
+  }
   if (obj.src) createdElement.src = obj.src;
   if (obj.height || obj.width)
     createdElement.height = createdElement.width = obj.height;
@@ -33,5 +38,6 @@ export function createDOMElement(obj) {
     createdElement.addEventListener(obj.event.type, obj.event.callback, {
       ...obj.options,
     });
+  if (obj.draggable) createdElement.setAttribute("draggable", true);
   return createdElement;
 }

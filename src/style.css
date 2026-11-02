@@ -78,9 +78,14 @@ body {
   background-color: hsl(34, 78%, 92%);
 }
 
+.player {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
 .board {
-  width: 700px;
-  height: 700px;
+  height: 570px;
 
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -132,6 +137,35 @@ button {
   left: 47%;
 }
 
-.randomize {
-  position: absolute;
+.drag-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+
+  padding: 2px;
+  gap: 5px;
+  margin-bottom: 4px;
+
+  border: 1px solid black;
+}
+
+.two {
+  width: 114px;
+}
+
+.three {
+  width: 171px;
+}
+
+.four {
+  width: 228px;
+}
+
+.six {
+  width: 342px;
+}
+
+.drag-ships {
+  height: 57px;
+  background-color: rgb(69, 135, 157);
 }
