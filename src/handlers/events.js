@@ -1,6 +1,9 @@
-import { renderBoard, renderPlayersBoard } from "../components/board.js";
+import { renderPlayersBoard } from "../components/board.js";
 import { renderRestartBtn } from "../components/restartBtn.js";
-import { renderRandomizeBtn } from "../components/randomizeBtn.js";
+import {
+  renderRandomizeShipsBtn,
+  renderResetShipsBtn,
+} from "../components/randomizeShips.js";
 import { renderStartBtn } from "../components/startBtn.js";
 import { renderDragContainer } from "../components/dragContainer.js";
 import { gameState } from "../gameState.js";
@@ -62,8 +65,6 @@ export function onStartClick(e, player) {
     return;
   }
 
-  const randomizeBtn = document.querySelector(".randomize");
-
   switch (gameState.mode) {
     case "Multi":
       if (gameState.turn !== "P1") {
@@ -82,21 +83,23 @@ export function onStartClick(e, player) {
       renderPlayersBoard("both");
   }
 
-  randomizeBtn.remove();
+  document.querySelector(".randomize").remove();
+  document.querySelector(".reset-ships").remove();
   document.querySelector(".drag-container").remove();
   document.querySelector(".result").textContent = "";
 }
 
 export function onRandomizeClick(number, player) {
   player.gameboard.randomizeShips();
-  renderBoard(number, player);
+  renderPlayersBoard(`p${number}`);
 }
 
 export function onContinueClick() {
   hidePassDevice();
   if (gameState.phase === "NOT_STARTED") {
     renderDragContainer(2);
-    renderRandomizeBtn(2, gameState.player2);
+    renderRandomizeShipsBtn(2, gameState.player2);
+    renderResetShipsBtn(2);
     renderStartBtn(gameState.player2);
   }
 
@@ -110,4 +113,11 @@ export function onNextClick() {
     gameState.swapTurns();
     showPassDevice();
   }
+}
+
+export function onResetShipsClick(playerNumber) {
+  const player = playerNumber === 1 ? gameState.player1 : gameState.player2;
+  player.gameboard.createNewBoard();
+  renderDragContainer(playerNumber);
+  renderPlayersBoard(`p${playerNumber}`);
 }

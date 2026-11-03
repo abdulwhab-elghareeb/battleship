@@ -3,7 +3,10 @@ import { Human } from "../classes/Human.js";
 import { renderPlayersBoard } from "../components/board.js";
 import { renderDragContainer } from "../components/dragContainer.js";
 import { renderMainMarkup } from "../components/mainMarkup.js";
-import { renderRandomizeBtn } from "../components/randomizeBtn.js";
+import {
+  renderRandomizeShipsBtn,
+  renderResetShipsBtn,
+} from "../components/randomizeShips.js";
 import { renderStartBtn } from "../components/startBtn.js";
 import { gameState } from "../gameState.js";
 
@@ -19,7 +22,8 @@ export function loadSingleMode() {
 
   renderDragContainer(1);
   renderPlayersBoard("both");
-  renderRandomizeBtn(1, player);
+  renderRandomizeShipsBtn(1, player);
+  renderResetShipsBtn(1);
   renderStartBtn(player, computer);
 }
 
@@ -35,6 +39,7 @@ export function loadMultiMode() {
 
   renderDragContainer(1);
   renderPlayersBoard("both");
-  renderRandomizeBtn(1, player1);
+  renderRandomizeShipsBtn(1, player1);
+  renderResetShipsBtn(1);
   renderStartBtn(player1, player2);
 }

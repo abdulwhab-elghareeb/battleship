@@ -64,4 +64,17 @@ describe("Gameboard class", () => {
     expect(new Gameboard().isValidPlacement(6, [-1, 0])).toBe(false);
     expect(new Gameboard().isValidPlacement(6, [4, -4])).toBe(false);
   });
+
+  test("createNewBoard function replaces the old board with a new one", () => {
+    const testGameboard = new Gameboard();
+    testGameboard.placeShip(2, [1, 2]);
+    expect(testGameboard.board[1][2]).toBeTruthy();
+    testGameboard.receiveAttack([1, 2]);
+    expect(testGameboard.directHits).toContain(JSON.stringify([1, 2]));
+
+    testGameboard.createNewBoard();
+
+    expect(testGameboard.board[1][2]).toBeFalsy();
+    expect(testGameboard.directHits).not.toContain(JSON.stringify([1, 2]));
+  });
 });

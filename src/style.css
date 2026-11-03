@@ -75,6 +75,7 @@ body {
 }
 
 #main-container {
+  position: relative;
   flex-grow: 1;
 }
 
@@ -93,18 +94,32 @@ body {
 }
 
 .player {
-  width: 600px;
-  display: flex;
-  flex-direction: column;
+  width: 570px;
+
+  display: grid;
+  grid-template-areas:
+    "h1 h1"
+    "board board"
+    "drag drag"
+    "random reset";
+  grid-auto-columns: min-content;
+}
+
+.player h1 {
+  grid-area: h1;
 }
 
 .board {
+  grid-area: board;
+
   height: 570px;
+  width: 570px;
 
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
   cursor: crosshair;
+  border: 2px solid rgb(77, 77, 165);
 }
 
 .board > div {
@@ -162,31 +177,44 @@ button {
 }
 
 .drag-container {
+  grid-area: drag;
+
   display: flex;
   flex-wrap: wrap;
-  align-content: start;
+  align-content: center;
+  justify-content: center;
 
-  padding: 2px;
-  gap: 5px;
-  margin-bottom: 4px;
+  padding: 3px 0;
+  gap: 3px;
+  margin-bottom: 5px;
 
-  border: 1px solid black;
+  border: 2px solid rgb(77, 77, 165);
+}
+
+.randomize {
+  grid-area: random;
+  justify-self: end;
+  margin-right: 3px;
+}
+
+.reset-ships {
+  grid-area: reset;
 }
 
 .two {
-  width: 114px;
+  width: calc(2 * 57px);
 }
 
 .three {
-  width: 171px;
+  width: calc(3 * 57px);
 }
 
 .four {
-  width: 228px;
+  width: calc(4 * 57px);
 }
 
-.six {
-  width: 342px;
+.five {
+  width: calc(5 * 57px);
 }
 
 .drag-ships {
@@ -226,6 +254,7 @@ button {
 .turn {
   color: hsl(0, 0%, 30%);
 }
+
 .turn::before,
 .turn::after {
   color: blueviolet;

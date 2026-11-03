@@ -47,7 +47,7 @@ export class Gameboard {
     this.#board = [...new Array(10)].map(() => new Array(10).fill(0));
     this.#shipCount = 0;
 
-    const sizes = [6, 4, 3, 3, 2];
+    const sizes = [5, 4, 3, 3, 2];
 
     while (this.#shipCount !== 5) {
       const randomCord = [
@@ -59,6 +59,13 @@ export class Gameboard {
         this.placeShip(sizes.shift(), randomCord);
       }
     }
+  }
+
+  createNewBoard() {
+    this.#board = [...new Array(10)].map(() => new Array(10).fill(0));
+    this.#shipCount = 0;
+    this.#directHits = new Set();
+    this.#missedHits = new Set();
   }
 
   receiveAttack([row, col]) {
