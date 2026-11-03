@@ -1,3 +1,4 @@
+import { gameState } from "../gameState.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderMainMarkup() {
@@ -16,6 +17,7 @@ export function renderMainMarkup() {
       children: [
         createDOMElement({
           elemType: "h1",
+          className: "turn",
           textContent: "Player 1",
         }),
       ],
@@ -31,4 +33,11 @@ export function renderMainMarkup() {
       ],
     }),
   );
+}
+
+export function updateVisualTurn() {
+  const turn = +gameState.turn.at(-1);
+  const otherPlayer = turn === 1 ? 2 : 1;
+  document.querySelector(`.player${turn} h1`).classList.add("turn");
+  document.querySelector(`.player${otherPlayer} h1`).classList.remove("turn");
 }

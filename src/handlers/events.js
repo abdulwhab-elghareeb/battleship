@@ -1,12 +1,13 @@
 import { renderBoard, renderPlayersBoard } from "../components/board.js";
 import { renderRestartBtn } from "../components/restartBtn.js";
-import { Human } from "../classes/Human.js";
-import { Computer } from "../classes/Computer.js";
 import { renderRandomizeBtn } from "../components/randomizeBtn.js";
 import { renderStartBtn } from "../components/startBtn.js";
 import { renderDragContainer } from "../components/dragContainer.js";
 import { gameState } from "../gameState.js";
 import { hidePassDevice, showPassDevice } from "../components/passDevice.js";
+import { renderNextBtn } from "../components/nextBtn.js";
+import { renderModeSelection } from "../components/modeSelection.js";
+import { updateVisualTurn } from "../components/mainMarkup.js";
 
 export function onAttack(e, attackingPlayer, toBeAttacked) {
   if (e.target.parentNode.className !== "board") return;
@@ -18,6 +19,7 @@ export function onAttack(e, attackingPlayer, toBeAttacked) {
     : 2;
 
   if (!toBeAttacked.gameboard.isValidAttack(cord)) return;
+
   attackingPlayer.attackPlace(cord, toBeAttacked);
   checkWinCondition(attackingPlayer, toBeAttacked);
 
@@ -26,9 +28,15 @@ export function onAttack(e, attackingPlayer, toBeAttacked) {
     checkWinCondition(attackingPlayer, toBeAttacked);
   }
 
-  attackedPlayerNumber === 2
-    ? renderPlayersBoard(attackingPlayer, toBeAttacked)
-    : renderPlayersBoard(toBeAttacked, attackingPlayer);
+  if (attackedPlayerNumber === 2) {
+    gameState.player1Attacked = true;
+    gameState.player2Attacked = false;
+    renderPlayersBoard("p2");
+  } else {
+    gameState.player2Attacked = true;
+    gameState.player1Attacked = false;
+    renderPlayersBoard("p1");
+  }
 }
 
 function checkWinCondition(player1, player2) {
@@ -40,47 +48,29 @@ function checkWinCondition(player1, player2) {
     return;
   }
 
-  [...document.querySelectorAll(".player .board")].forEach((board) => {
-    board.classList.add("disabled");
-  });
   renderRestartBtn(player1);
 }
 
-export function onRestartClick(e) {
-  [...document.querySelectorAll(".player .board")].forEach((board) => {
-    board.classList.remove("disabled");
-  });
-  document.querySelector(".result").textContent = "";
-
-  const player1 = new Human();
-  const computer = new Computer();
-  computer.gameboard.randomizeShips();
-
-  renderDragContainer(1);
-  renderPlayersBoard(player1, computer);
-  renderRandomizeBtn(1, player1);
-  renderStartBtn(player1);
-
-  e.target.remove();
+export function onRestartClick() {
+  gameState.reset();
+  renderModeSelection();
 }
 
-export function onStartClick(e, player, computer) {
-  if (gameState.phase !== "NOT_STARTED") return;
-
-  const randomizeBtn = document.querySelector(".randomize");
-
-  if (player.gameboard.shipCount === 0) {
-    randomizeBtn.click();
-  } else if (player.gameboard.shipCount < 5) {
+export function onStartClick(e, player) {
+  if (gameState.phase !== "NOT_STARTED" || player.gameboard.shipCount < 5) {
     return;
   }
 
+  const randomizeBtn = document.querySelector(".randomize");
+
   if (gameState.mode === "Multi" && gameState.turn === "P1") {
-    gameState.swapTurns();
     showPassDevice();
   } else {
     gameState.nextPhase();
+    renderNextBtn();
   }
+
+  gameState.swapTurns();
 
   randomizeBtn.remove();
   document.querySelector(".drag-container").remove();
@@ -88,7 +78,7 @@ export function onStartClick(e, player, computer) {
 
   if (gameState.phase === "STARTED") {
     e.target.remove();
-    renderPlayersBoard(player, computer);
+    showPassDevice();
   }
 }
 
@@ -99,7 +89,20 @@ export function onRandomizeClick(number, player) {
 
 export function onContinueClick() {
   hidePassDevice();
-  renderDragContainer(2);
-  renderPlayersBoard(gameState.player1, gameState.player2);
-  renderRandomizeBtn(2, gameState.player2);
+  if (gameState.phase === "NOT_STARTED") {
+    renderDragContainer(2);
+    renderRandomizeBtn(2, gameState.player2);
+    renderStartBtn(gameState.player2);
+  }
+
+  renderPlayersBoard("both");
+  updateVisualTurn();
+}
+
+export function onNextClick() {
+  const currPlayer = gameState[`player${gameState.turn.at(-1)}Attacked`];
+  if (currPlayer) {
+    gameState.swapTurns();
+    showPassDevice();
+  }
 }

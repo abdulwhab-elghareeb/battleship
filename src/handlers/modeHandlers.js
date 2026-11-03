@@ -18,7 +18,7 @@ export function loadSingleMode() {
   gameState.setPlayer(2, computer);
 
   renderDragContainer(1);
-  renderPlayersBoard(player, computer);
+  renderPlayersBoard("both");
   renderRandomizeBtn(1, player);
   renderStartBtn(player, computer);
 }
@@ -34,7 +34,7 @@ export function loadMultiMode() {
   gameState.setPlayer(2, player2);
 
   renderDragContainer(1);
-  renderPlayersBoard(player1, player2);
+  renderPlayersBoard("both");
   renderRandomizeBtn(1, player1);
   renderStartBtn(player1, player2);
 }

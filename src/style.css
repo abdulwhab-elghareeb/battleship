@@ -141,6 +141,12 @@ div.sunk {
   left: 45%;
 }
 
+.next {
+  position: absolute;
+  left: 47%;
+  top: 20%;
+}
+
 button {
   width: 120px;
   height: 35px;
@@ -209,10 +215,28 @@ button {
   justify-content: center;
   gap: 8px;
 
-  background-color: hsl(34, 78%, 92%);
+  background-color: hsl(34, 78%, 92%, 99%);
   color: hsl(0, 0%, 10%);
 
   &.hidden {
     display: none;
   }
+}
+
+.turn {
+  color: hsl(0, 0%, 30%);
+}
+.turn::before,
+.turn::after {
+  color: blueviolet;
+  font-size: 46px;
+  font-weight: bold;
+}
+
+.turn::before {
+  content: "→";
+}
+
+.turn::after {
+  content: "←";
 }

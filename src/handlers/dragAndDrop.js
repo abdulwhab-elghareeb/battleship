@@ -1,4 +1,4 @@
-import { renderBoard } from "../components/board.js";
+import { renderPlayersBoard } from "../components/board.js";
 
 export function applyDragAndDrop(player, playerNumber) {
   let row = 0;
@@ -6,7 +6,9 @@ export function applyDragAndDrop(player, playerNumber) {
 
   const playerBoard = document.querySelector(`.player${playerNumber} .board`);
   const draggableElements = [
-    ...document.querySelectorAll(".drag-container .drag-ships"),
+    ...document.querySelectorAll(
+      `.player${playerNumber} .drag-container .drag-ships`,
+    ),
   ];
 
   draggableElements.forEach((dragElem) => {
@@ -18,13 +20,14 @@ export function applyDragAndDrop(player, playerNumber) {
     });
   });
 
-  playerBoard.addEventListener("dragover", (e) => {
+  function dragOverHandler(e) {
     e.preventDefault();
     row = +e.target.dataset.row;
     col = +e.target.dataset.col - 1;
-  });
+  }
+  playerBoard.addEventListener("dragover", dragOverHandler);
 
-  playerBoard.addEventListener("drop", (e) => {
+  function dropHandler(e) {
     e.preventDefault();
     const data = JSON.parse(e.dataTransfer.getData("text/javascript"));
     const size = +data[0];
@@ -36,9 +39,11 @@ export function applyDragAndDrop(player, playerNumber) {
       gameboard.shipCount < 5
     ) {
       gameboard.placeShip(size, [row, col]);
-      renderBoard(playerNumber, player);
+      renderPlayersBoard(`p${playerNumber}`);
 
       document.querySelector(`[data-id="${id}"]`).remove();
     }
-  });
+  }
+
+  playerBoard.addEventListener("drop", dropHandler);
 }

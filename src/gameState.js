@@ -11,6 +11,9 @@ export const gameState = (() => {
     }
   };
 
+  let player1Attacked = false;
+  let player2Attacked = false;
+
   let turn = "P1";
   const swapTurns = () => (turn = turn === "P1" ? "P2" : "P1");
 
@@ -33,6 +36,16 @@ export const gameState = (() => {
     }
   };
 
+  const reset = () => {
+    player1 = null;
+    player2 = null;
+    phase = "NOT_STARTED";
+    mode = "";
+    player1Attacked = false;
+    player2Attacked = false;
+    turn = "P1";
+  };
+
   return {
     get phase() {
       return phase;
@@ -49,10 +62,12 @@ export const gameState = (() => {
     get player2() {
       return player2;
     },
-
+    player1Attacked,
+    player2Attacked,
     setPlayer,
     swapTurns,
     setMode,
     nextPhase,
+    reset,
   };
 })();

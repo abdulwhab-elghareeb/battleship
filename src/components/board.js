@@ -3,8 +3,14 @@ import { createDOMElement } from "../helpers/domHelpers.js";
 import { applyDragAndDrop } from "../handlers/dragAndDrop.js";
 import { gameState } from "../gameState.js";
 
-export function renderBoard(playerNumber, player, against) {
+export function renderBoard(playerNumber) {
   document.querySelector(`.player${playerNumber} .board`)?.remove();
+
+  const player = playerNumber === 1 ? gameState.player1 : gameState.player2;
+  const isPlayerTurn = gameState.turn.includes(playerNumber);
+  const against = playerNumber === 1 ? gameState.player2 : gameState.player1;
+  const againstPlayerAttacked =
+    playerNumber === 1 ? gameState.player2Attacked : gameState.player1Attacked;
 
   const board = player.gameboard.board;
   const missedHits = player.gameboard.missedHits;
@@ -16,10 +22,26 @@ export function renderBoard(playerNumber, player, against) {
   });
   document.querySelector(`.player${playerNumber} h1`).after(gridContainer);
 
-  if (player.type === "CPU" && gameState.phase === "STARTED") {
-    gridContainer.addEventListener("click", (e) =>
-      onAttack(e, against, player),
-    );
+  switch (gameState.phase) {
+    case "STARTED":
+      switch (player.type) {
+        case "CPU":
+          gridContainer.addEventListener("click", (e) =>
+            onAttack(e, against, player),
+          );
+          break;
+
+        case "Real":
+          if (
+            gameState.mode === "Multi" &&
+            !againstPlayerAttacked &&
+            !isPlayerTurn
+          ) {
+            gridContainer.addEventListener("click", (e) =>
+              onAttack(e, against, player),
+            );
+          }
+      }
   }
 
   if (player.type === "Real") {
@@ -38,7 +60,7 @@ export function renderBoard(playerNumber, player, against) {
       if (directHits.has([row, col].toString())) {
         grid.classList.add("hit");
       }
-      if (board[row][col] && gameState.turn.includes(playerNumber)) {
+      if (board[row][col] && isPlayerTurn) {
         grid.classList.add("ship");
       }
       if (board[row][col] && board[row][col].isSunk()) {
@@ -48,7 +70,16 @@ export function renderBoard(playerNumber, player, against) {
   }
 }
 
-export function renderPlayersBoard(player1, player2) {
-  if (player1) renderBoard(1, player1, player2);
-  if (player2) renderBoard(2, player2, player1);
+export function renderPlayersBoard(option) {
+  switch (option) {
+    case "both":
+      renderBoard(1);
+      renderBoard(2);
+      break;
+    case "p1":
+      renderBoard(1);
+      break;
+    case "p2":
+      renderBoard(2);
+  }
 }
