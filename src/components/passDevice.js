@@ -1,11 +1,22 @@
+import { onContinueClick } from "../handlers/events.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderPassDeviceScreen() {
   createDOMElement({
     elemType: "div",
     className: "pass-device hidden",
-    textContent: "Pass the device to the other player",
     parent: document.body,
+    children: [
+      createDOMElement({
+        elemType: "h1",
+        textContent: "Pass the device to the other player",
+      }),
+      createDOMElement({
+        elemType: "button",
+        textContent: "continue",
+        event: { type: "click", callback: onContinueClick },
+      }),
+    ],
   });
 }
 

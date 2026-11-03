@@ -1,10 +1,10 @@
-import { renderPlayersBoard } from "../components/board.js";
+import { renderBoard } from "../components/board.js";
 
-export function applyDragAndDrop(player1) {
+export function applyDragAndDrop(player, playerNumber) {
   let row = 0;
   let col = 0;
 
-  const player1Board = document.querySelector(".player1 .board");
+  const playerBoard = document.querySelector(`.player${playerNumber} .board`);
   const draggableElements = [
     ...document.querySelectorAll(".drag-container .drag-ships"),
   ];
@@ -18,25 +18,25 @@ export function applyDragAndDrop(player1) {
     });
   });
 
-  player1Board.addEventListener("dragover", (e) => {
+  playerBoard.addEventListener("dragover", (e) => {
     e.preventDefault();
     row = +e.target.dataset.row;
     col = +e.target.dataset.col - 1;
   });
 
-  player1Board.addEventListener("drop", (e) => {
+  playerBoard.addEventListener("drop", (e) => {
     e.preventDefault();
     const data = JSON.parse(e.dataTransfer.getData("text/javascript"));
     const size = +data[0];
     const id = data[1];
-    const gameboard = player1.gameboard;
+    const gameboard = player.gameboard;
 
     if (
       gameboard.isValidPlacement(size, [row, col]) &&
       gameboard.shipCount < 5
     ) {
       gameboard.placeShip(size, [row, col]);
-      renderPlayersBoard(player1);
+      renderBoard(playerNumber, player);
 
       document.querySelector(`[data-id="${id}"]`).remove();
     }

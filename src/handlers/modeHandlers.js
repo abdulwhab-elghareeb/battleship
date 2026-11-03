@@ -5,16 +5,36 @@ import { renderDragContainer } from "../components/dragContainer.js";
 import { renderMainMarkup } from "../components/mainMarkup.js";
 import { renderRandomizeBtn } from "../components/randomizeBtn.js";
 import { renderStartBtn } from "../components/startBtn.js";
+import { gameState } from "../gameState.js";
 
-export function loadRegularMode() {
+export function loadSingleMode() {
+  gameState.setMode("Single");
+  renderMainMarkup();
+
+  const player = new Human();
+  const computer = new Computer();
+  computer.gameboard.randomizeShips();
+  gameState.setPlayer(1, player);
+  gameState.setPlayer(2, computer);
+
+  renderDragContainer(1);
+  renderPlayersBoard(player, computer);
+  renderRandomizeBtn(1, player);
+  renderStartBtn(player, computer);
+}
+
+export function loadMultiMode() {
+  gameState.setMode("Multi");
   renderMainMarkup();
 
   const player1 = new Human();
-  const computer = new Computer();
-  computer.gameboard.randomizeShips();
+  const player2 = new Human();
 
-  renderDragContainer();
-  renderPlayersBoard(player1, computer);
-  renderRandomizeBtn(player1);
-  renderStartBtn(player1, computer);
+  gameState.setPlayer(1, player1);
+  gameState.setPlayer(2, player2);
+
+  renderDragContainer(1);
+  renderPlayersBoard(player1, player2);
+  renderRandomizeBtn(1, player1);
+  renderStartBtn(player1, player2);
 }

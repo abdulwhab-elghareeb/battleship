@@ -3,7 +3,7 @@ import { createDOMElement } from "../helpers/domHelpers.js";
 import { applyDragAndDrop } from "../handlers/dragAndDrop.js";
 import { gameState } from "../gameState.js";
 
-function renderBoard(playerNumber, player, against) {
+export function renderBoard(playerNumber, player, against) {
   document.querySelector(`.player${playerNumber} .board`)?.remove();
 
   const board = player.gameboard.board;
@@ -16,14 +16,14 @@ function renderBoard(playerNumber, player, against) {
   });
   document.querySelector(`.player${playerNumber} h1`).after(gridContainer);
 
-  if (player.type === "CPU" && gameState.isGameStarted) {
+  if (player.type === "CPU" && gameState.phase === "STARTED") {
     gridContainer.addEventListener("click", (e) =>
       onAttack(e, against, player),
     );
   }
 
   if (player.type === "Real") {
-    applyDragAndDrop(player);
+    applyDragAndDrop(player, playerNumber);
   }
 
   for (let row = 0; row < 10; row++) {
@@ -38,7 +38,7 @@ function renderBoard(playerNumber, player, against) {
       if (directHits.has([row, col].toString())) {
         grid.classList.add("hit");
       }
-      if (board[row][col] && player.type === "Real") {
+      if (board[row][col] && gameState.turn.includes(playerNumber)) {
         grid.classList.add("ship");
       }
       if (board[row][col] && board[row][col].isSunk()) {

@@ -1,4 +1,4 @@
-import {  loadRegularMode } from "../handlers/modeHandlers.js";
+import { loadMultiMode, loadSingleMode } from "../handlers/modeHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderModeSelection() {
@@ -21,11 +21,12 @@ export function renderModeSelection() {
           createDOMElement({
             elemType: "button",
             textContent: "Player vs Player",
+            event: { type: "click", callback: loadMultiMode },
           }),
           createDOMElement({
             elemType: "button",
             textContent: "Player vs CPU",
-            event: { type: "click", callback: loadRegularMode },
+            event: { type: "click", callback: loadSingleMode },
           }),
         ],
       }),

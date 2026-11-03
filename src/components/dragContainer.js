@@ -1,10 +1,10 @@
 import { createDOMElement } from "../helpers/domHelpers.js";
 
-export function renderDragContainer() {
+export function renderDragContainer(playerNumber) {
   const container = createDOMElement({
     elemType: "div",
     className: "drag-container",
-    parent: document.querySelector(".player1"),
+    parent: document.querySelector(`.player${playerNumber}`),
   });
 
   const sizes = [6, 4, 3, 3, 2];

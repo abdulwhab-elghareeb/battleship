@@ -4,4 +4,3 @@ import { renderPassDeviceScreen } from "./components/passDevice.js";
 
 renderPassDeviceScreen();
 renderModeSelection();
-

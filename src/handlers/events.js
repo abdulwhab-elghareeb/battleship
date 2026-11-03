@@ -1,4 +1,4 @@
-import { renderPlayersBoard } from "../components/board.js";
+import { renderBoard, renderPlayersBoard } from "../components/board.js";
 import { renderRestartBtn } from "../components/restartBtn.js";
 import { Human } from "../classes/Human.js";
 import { Computer } from "../classes/Computer.js";
@@ -6,6 +6,7 @@ import { renderRandomizeBtn } from "../components/randomizeBtn.js";
 import { renderStartBtn } from "../components/startBtn.js";
 import { renderDragContainer } from "../components/dragContainer.js";
 import { gameState } from "../gameState.js";
+import { hidePassDevice, showPassDevice } from "../components/passDevice.js";
 
 export function onAttack(e, attackingPlayer, toBeAttacked) {
   if (e.target.parentNode.className !== "board") return;
@@ -55,29 +56,50 @@ export function onRestartClick(e) {
   const computer = new Computer();
   computer.gameboard.randomizeShips();
 
-  renderDragContainer();
+  renderDragContainer(1);
   renderPlayersBoard(player1, computer);
-  renderRandomizeBtn(player1);
+  renderRandomizeBtn(1, player1);
   renderStartBtn(player1);
 
   e.target.remove();
 }
 
 export function onStartClick(e, player, computer) {
+  if (gameState.phase !== "NOT_STARTED") return;
+
   const randomizeBtn = document.querySelector(".randomize");
-  if (player.gameboard.shipCount === 0) randomizeBtn.click();
-  else if (player.gameboard.shipCount < 5) return;
+
+  if (player.gameboard.shipCount === 0) {
+    randomizeBtn.click();
+  } else if (player.gameboard.shipCount < 5) {
+    return;
+  }
+
+  if (gameState.mode === "Multi" && gameState.turn === "P1") {
+    gameState.swapTurns();
+    showPassDevice();
+  } else {
+    gameState.nextPhase();
+  }
 
   randomizeBtn.remove();
   document.querySelector(".drag-container").remove();
   document.querySelector(".result").textContent = "";
-  e.target.remove();
 
-  gameState.isGameStarted = true;
-  renderPlayersBoard(player, computer);
+  if (gameState.phase === "STARTED") {
+    e.target.remove();
+    renderPlayersBoard(player, computer);
+  }
 }
 
-export function onRandomizeClick(player1) {
-  player1.gameboard.randomizeShips();
-  renderPlayersBoard(player1);
+export function onRandomizeClick(number, player) {
+  player.gameboard.randomizeShips();
+  renderBoard(number, player);
+}
+
+export function onContinueClick() {
+  hidePassDevice();
+  renderDragContainer(2);
+  renderPlayersBoard(gameState.player1, gameState.player2);
+  renderRandomizeBtn(2, gameState.player2);
 }
