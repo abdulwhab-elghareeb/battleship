@@ -42,10 +42,12 @@ export function renderBoard(playerNumber) {
             );
           }
       }
-  }
+      break;
 
-  if (player.type === "Real") {
-    applyDragAndDrop(player, playerNumber);
+    case "NOT_STARTED":
+      if (player.type === "Real") {
+        applyDragAndDrop(player, playerNumber);
+      }
   }
 
   for (let row = 0; row < 10; row++) {

@@ -26,6 +26,7 @@ export function onAttack(e, attackingPlayer, toBeAttacked) {
   if (toBeAttacked.type === "CPU") {
     toBeAttacked.attackRandomPlace(attackingPlayer);
     checkWinCondition(attackingPlayer, toBeAttacked);
+    renderPlayersBoard("both");
   }
 
   if (attackedPlayerNumber === 2) {
@@ -78,6 +79,7 @@ export function onStartClick(e, player) {
     case "Single":
       gameState.nextPhase();
       e.target.remove();
+      renderPlayersBoard("both");
   }
 
   randomizeBtn.remove();
