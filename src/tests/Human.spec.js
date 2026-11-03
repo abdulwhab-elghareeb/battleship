@@ -13,8 +13,8 @@ describe("Human class", () => {
     testPlayer.attackPlace([1, 1], againstPlayer);
 
     expect(
-      againstPlayer.gameboard.directHits.has([1, 1].toString()) ||
-        againstPlayer.gameboard.missedHits.has([1, 1].toString()),
+      againstPlayer.gameboard.directHits.has(JSON.stringify([1, 1])) ||
+        againstPlayer.gameboard.missedHits.has(JSON.stringify([1, 1])),
     ).toBe(true);
   });
 

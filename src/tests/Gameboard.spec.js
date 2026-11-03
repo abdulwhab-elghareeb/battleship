@@ -23,10 +23,10 @@ describe("Gameboard class", () => {
     testBoard.receiveAttack([2, 1]);
     testBoard.receiveAttack([2, 2]);
     expect(testBoard.board[2][1].isSunk()).toBe(true);
-    expect(testBoard.directHits).toContain([2, 2].toString());
+    expect(testBoard.directHits).toContain(JSON.stringify([2, 2]));
 
     testBoard.receiveAttack([2, 5]);
-    expect(testBoard.missedHits).toContain([2, 5].toString());
+    expect(testBoard.missedHits).toContain(JSON.stringify([2, 5]));
   });
 
   test("chicks if all ships are sunk", () => {
@@ -40,6 +40,8 @@ describe("Gameboard class", () => {
 
     expect(testGameboard.isValidAttack([1, 2])).toBe(false);
     expect(testGameboard.isValidAttack([1, 5])).toBe(true);
+    expect(testGameboard.isValidAttack([-1, 0])).toBe(false);
+    expect(testGameboard.isValidAttack([0, 10])).toBe(false);
   });
 
   test("shipCount property returns the number of ships on board", () => {
@@ -59,7 +61,7 @@ describe("Gameboard class", () => {
   test("checks if ship placement is valid", () => {
     expect(new Gameboard().isValidPlacement(2, [9, 9])).toBe(false);
     expect(new Gameboard().isValidPlacement(2, [7, 7])).toBe(true);
-    expect(new Gameboard().isValidPlacement(6, [-1, 0])).toBe(false)
-    expect(new Gameboard().isValidPlacement(6, [4, -4])).toBe(false)
+    expect(new Gameboard().isValidPlacement(6, [-1, 0])).toBe(false);
+    expect(new Gameboard().isValidPlacement(6, [4, -4])).toBe(false);
   });
 });

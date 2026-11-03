@@ -13,7 +13,7 @@ export function onAttack(e, attackingPlayer, toBeAttacked) {
   if (e.target.parentNode.className !== "board") return;
 
   const target = e.target;
-  const cord = [target.dataset.row, target.dataset.col];
+  const cord = [+target.dataset.row, +target.dataset.col];
   const attackedPlayerNumber = target.closest(".player").className.includes("1")
     ? 1
     : 2;
@@ -105,8 +105,8 @@ export function onContinueClick() {
 }
 
 export function onNextClick() {
-  const currPlayer = gameState[`player${gameState.turn.at(-1)}Attacked`];
-  if (currPlayer) {
+  const playerAttacked = gameState[`player${gameState.turn.at(-1)}Attacked`];
+  if (playerAttacked) {
     gameState.swapTurns();
     showPassDevice();
   }

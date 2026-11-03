@@ -66,9 +66,9 @@ export class Gameboard {
 
     if (this.#board[row][col]) {
       this.#board[row][col].hit();
-      this.#directHits.add([row, col].toString());
+      this.#directHits.add(JSON.stringify([row, col]));
     } else {
-      this.#missedHits.add([row, col].toString());
+      this.#missedHits.add(JSON.stringify([row, col]));
     }
   }
 
@@ -83,9 +83,14 @@ export class Gameboard {
   }
 
   isValidAttack(cord) {
+    const [row, col] = cord;
     return (
-      !this.#missedHits.has(cord.toString()) &&
-      !this.#directHits.has(cord.toString())
+      !this.#missedHits.has(JSON.stringify(cord)) &&
+      !this.#directHits.has(JSON.stringify(cord)) &&
+      row >= 0 &&
+      row <= 9 &&
+      col >= 0 &&
+      col <= 9
     );
   }
 }

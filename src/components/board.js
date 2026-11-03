@@ -56,10 +56,10 @@ export function renderBoard(playerNumber) {
       grid.dataset.row = row;
       grid.dataset.col = col;
 
-      if (missedHits.has([row, col].toString())) {
+      if (missedHits.has(JSON.stringify([row, col]))) {
         grid.classList.add("missed");
       }
-      if (directHits.has([row, col].toString())) {
+      if (directHits.has(JSON.stringify([row, col]))) {
         grid.classList.add("hit");
       }
       if (board[row][col] && isPlayerTurn) {

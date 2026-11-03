@@ -22,16 +22,26 @@ describe("Computer class", () => {
     }
 
     expect(
-      againstMissedHits.has([9, 9].toString()) ||
-        againstDirectHits.has([9, 9].toString()),
+      againstMissedHits.has(JSON.stringify([9, 9])) ||
+        againstDirectHits.has(JSON.stringify([9, 9])),
     ).toBe(false);
 
     testComputer.attackRandomPlace(againstComputer);
 
     expect(
-      againstMissedHits.has([9, 9].toString()) ||
-        againstDirectHits.has([9, 9].toString()),
+      againstMissedHits.has(JSON.stringify([9, 9])) ||
+        againstDirectHits.has(JSON.stringify([9, 9])),
     ).toBe(true);
+  });
+
+  test("it tries hitting adjacent slots after hitting a ship", () => {
+    const testComputer = new Computer();
+    const enemy = new Computer();
+    enemy.gameboard.placeShip(4, [0, 5]);
+    enemy.gameboard.receiveAttack([0, 5]);
+
+    testComputer.attackRandomPlace(enemy);
+    expect(enemy.gameboard.directHits).toContain(JSON.stringify([0, 6]));
   });
 
   test("type property returns what type of a player the class is", () => {
