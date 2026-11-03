@@ -59,5 +59,7 @@ describe("Gameboard class", () => {
   test("checks if ship placement is valid", () => {
     expect(new Gameboard().isValidPlacement(2, [9, 9])).toBe(false);
     expect(new Gameboard().isValidPlacement(2, [7, 7])).toBe(true);
+    expect(new Gameboard().isValidPlacement(6, [-1, 0])).toBe(false)
+    expect(new Gameboard().isValidPlacement(6, [4, -4])).toBe(false)
   });
 });

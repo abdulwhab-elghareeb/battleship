@@ -38,7 +38,9 @@ export function applyDragAndDrop(player, playerNumber) {
       gameboard.isValidPlacement(size, [row, col]) &&
       gameboard.shipCount < 5
     ) {
+      console.log(size, [row, col])
       gameboard.placeShip(size, [row, col]);
+      console.log(player)
       renderPlayersBoard(`p${playerNumber}`);
 
       document.querySelector(`[data-id="${id}"]`).remove();

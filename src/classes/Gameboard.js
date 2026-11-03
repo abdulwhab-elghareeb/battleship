@@ -34,7 +34,7 @@ export class Gameboard {
   }
 
   isValidPlacement(shipSize, [row, col]) {
-    if (col + shipSize > 9) return false;
+    if (col + shipSize > 9 || row < 0 || col < 0) return false;
 
     for (let i = 0; i < shipSize; i++) {
       if (this.#board[row][col + i]) return false;
