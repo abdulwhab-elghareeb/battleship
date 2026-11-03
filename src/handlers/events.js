@@ -63,23 +63,26 @@ export function onStartClick(e, player) {
 
   const randomizeBtn = document.querySelector(".randomize");
 
-  if (gameState.mode === "Multi" && gameState.turn === "P1") {
-    showPassDevice();
-  } else {
-    gameState.nextPhase();
-    renderNextBtn();
-  }
+  switch (gameState.mode) {
+    case "Multi":
+      if (gameState.turn !== "P1") {
+        gameState.nextPhase();
+        renderNextBtn();
+        e.target.remove();
+      }
 
-  gameState.swapTurns();
+      showPassDevice();
+      gameState.swapTurns();
+      break;
+
+    case "Single":
+      gameState.nextPhase();
+      e.target.remove();
+  }
 
   randomizeBtn.remove();
   document.querySelector(".drag-container").remove();
   document.querySelector(".result").textContent = "";
-
-  if (gameState.phase === "STARTED") {
-    e.target.remove();
-    showPassDevice();
-  }
 }
 
 export function onRandomizeClick(number, player) {
