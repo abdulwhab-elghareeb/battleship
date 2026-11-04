@@ -1,7 +1,7 @@
 import { Player } from "./Player.js";
 
 export class Computer extends Player {
-  #type = "CPU";
+  #type = "computer";
 
   get type() {
     return this.#type;

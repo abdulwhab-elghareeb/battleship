@@ -45,6 +45,6 @@ describe("Computer class", () => {
   });
 
   test("type property returns what type of a player the class is", () => {
-    expect(new Computer().type).toBe("CPU");
+    expect(new Computer().type).toBe("computer");
   });
 });

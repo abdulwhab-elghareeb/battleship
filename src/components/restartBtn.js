@@ -1,4 +1,4 @@
-import { onRestartClick } from "../handlers/events.js";
+import { onRestartClick } from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderRestartBtn() {

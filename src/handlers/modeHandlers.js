@@ -13,6 +13,15 @@ import {
 import { renderStartBtn } from "../components/startBtn.js";
 import { gameState } from "../gameState.js";
 
+export function loadShipPlacingContent(playerNumber) {
+  renderDragContainer(playerNumber);
+  renderDirectionToggle(playerNumber);
+  renderPlayersBoard("both");
+  renderRandomizeShipsBtn(playerNumber);
+  renderResetShipsBtn(playerNumber);
+  renderStartBtn(playerNumber);
+}
+
 export function loadSingleMode() {
   gameState.setMode("Single");
   renderMainMarkup();
@@ -20,16 +29,11 @@ export function loadSingleMode() {
   const player = new Human();
   const computer = new Computer();
   computer.gameboard.randomizeShips();
+
   gameState.setPlayer(1, player);
   gameState.setPlayer(2, computer);
 
-  renderDragContainer(1);
-  renderDirectionToggle(1);
-
-  renderPlayersBoard("both");
-  renderRandomizeShipsBtn(1, player);
-  renderResetShipsBtn(1);
-  renderStartBtn(player, computer);
+  loadShipPlacingContent(1);
 }
 
 export function loadMultiMode() {
@@ -42,10 +46,5 @@ export function loadMultiMode() {
   gameState.setPlayer(1, player1);
   gameState.setPlayer(2, player2);
 
-  renderDragContainer(1);
-  renderDirectionToggle(1);
-  renderPlayersBoard("both");
-  renderRandomizeShipsBtn(1, player1);
-  renderResetShipsBtn(1);
-  renderStartBtn(player1, player2);
+  loadShipPlacingContent(1);
 }

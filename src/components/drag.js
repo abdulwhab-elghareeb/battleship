@@ -1,5 +1,5 @@
 import { gameState } from "../gameState.js";
-import { onDirectionClick } from "../handlers/events.js";
+import { onDirectionClick } from "../handlers/flowHandlers.js";
 import { getDifferences } from "../helpers/arrayHelpers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 

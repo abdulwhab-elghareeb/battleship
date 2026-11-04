@@ -1,4 +1,4 @@
-import { onContinueClick } from "../handlers/events.js";
+import { onContinueClick } from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderPassDeviceScreen() {

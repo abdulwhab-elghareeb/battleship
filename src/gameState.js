@@ -15,8 +15,8 @@ export const gameState = (() => {
   let player1Attacked = false;
   let player2Attacked = false;
 
-  let turn = "P1";
-  const swapTurns = () => (turn = turn === "P1" ? "P2" : "P1");
+  let playerTurn = 1;
+  const swapTurns = () => (playerTurn = playerTurn === 1 ? 2 : 1);
 
   let mode = "Single";
   const setMode = (val) => {
@@ -45,7 +45,7 @@ export const gameState = (() => {
     player1Attacked = false;
     player2Attacked = false;
     isVertical = false;
-    turn = "P1";
+    playerTurn = 1;
   };
 
   return {
@@ -55,8 +55,8 @@ export const gameState = (() => {
     get mode() {
       return mode;
     },
-    get turn() {
-      return turn;
+    get playerTurn() {
+      return playerTurn;
     },
     get player1() {
       return player1;

@@ -1,20 +1,16 @@
-import { onAttack } from "../handlers/events.js";
+import { onAttack } from "../handlers/attackHandler.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
-import { applyDragAndDrop } from "../handlers/dragAndDrop.js";
+import { applyDragAndDrop } from "../handlers/shipPlacingHandlers.js";
 import { gameState } from "../gameState.js";
 
 export function renderBoard(playerNumber) {
   document.querySelector(`.player${playerNumber} .board`)?.remove();
 
   const player = playerNumber === 1 ? gameState.player1 : gameState.player2;
-  const isPlayerTurn = gameState.turn.includes(playerNumber);
   const against = playerNumber === 1 ? gameState.player2 : gameState.player1;
+  const isPlayerTurn = gameState.playerTurn === playerNumber;
   const againstPlayerAttacked =
     playerNumber === 1 ? gameState.player2Attacked : gameState.player1Attacked;
-
-  const board = player.gameboard.board;
-  const missedHits = player.gameboard.missedHits;
-  const directHits = player.gameboard.directHits;
 
   const gridContainer = createDOMElement({
     elemType: "div",
@@ -24,31 +20,32 @@ export function renderBoard(playerNumber) {
 
   switch (gameState.phase) {
     case "STARTED":
-      switch (player.type) {
-        case "CPU":
+      if (player.type === "computer") {
+        gridContainer.addEventListener("click", (e) =>
+          onAttack(e, playerNumber),
+        );
+      } else {
+        if (
+          gameState.mode === "Multi" &&
+          !againstPlayerAttacked &&
+          !isPlayerTurn
+        ) {
           gridContainer.addEventListener("click", (e) =>
-            onAttack(e, against, player),
+            onAttack(e, playerNumber),
           );
-          break;
-
-        case "Real":
-          if (
-            gameState.mode === "Multi" &&
-            !againstPlayerAttacked &&
-            !isPlayerTurn
-          ) {
-            gridContainer.addEventListener("click", (e) =>
-              onAttack(e, against, player),
-            );
-          }
+        }
       }
       break;
 
     case "NOT_STARTED":
-      if (player.type === "Real") {
-        applyDragAndDrop(player, playerNumber);
+      if (player.type === "human") {
+        applyDragAndDrop(playerNumber);
       }
   }
+
+  const board = player.gameboard.board;
+  const missedHits = player.gameboard.missedHits;
+  const directHits = player.gameboard.directHits;
 
   for (let row = 0; row < 10; row++) {
     for (let col = 0; col < 10; col++) {
@@ -80,10 +77,10 @@ export function renderPlayersBoard(option) {
       renderBoard(1);
       renderBoard(2);
       break;
-    case "p1":
+    case 1:
       renderBoard(1);
       break;
-    case "p2":
+    case 2:
       renderBoard(2);
   }
 }

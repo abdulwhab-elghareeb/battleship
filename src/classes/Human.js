@@ -1,7 +1,7 @@
 import { Player } from "./Player.js";
 
 export class Human extends Player {
-  #type = "Real";
+  #type = "human";
 
   get type() {
     return this.#type;

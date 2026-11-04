@@ -36,8 +36,8 @@ export function renderMainMarkup() {
 }
 
 export function updateVisualTurn() {
-  const turn = +gameState.turn.at(-1);
-  const otherPlayer = turn === 1 ? 2 : 1;
-  document.querySelector(`.player${turn} h1`).classList.add("turn");
-  document.querySelector(`.player${otherPlayer} h1`).classList.remove("turn");
+  const currTurn = gameState.playerTurn;
+  const nextTurn = currTurn === 1 ? 2 : 1;
+  document.querySelector(`.player${currTurn} h1`).classList.add("turn");
+  document.querySelector(`.player${nextTurn} h1`).classList.remove("turn");
 }

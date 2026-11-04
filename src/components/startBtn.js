@@ -1,9 +1,10 @@
-import { onStartClick } from "../handlers/events.js";
+import { gameState } from "../gameState.js";
+import { onStartClick } from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
-export function renderStartBtn(player) {
+export function renderStartBtn(playerNumber) {
   document.querySelector(".start")?.remove();
-
+  const player = playerNumber === 1 ? gameState.player1 : gameState.player2;
   createDOMElement({
     elemType: "button",
     class: "start",

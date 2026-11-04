@@ -1,13 +1,17 @@
-import { onRandomizeClick, onResetShipsClick } from "../handlers/events.js";
+import { gameState } from "../gameState.js";
+import {
+  onRandomizeClick,
+  onResetShipsClick,
+} from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
-export function renderRandomizeShipsBtn(number, player) {
+export function renderRandomizeShipsBtn(number) {
   createDOMElement({
     elemType: "button",
     class: "randomize",
     textContent: "Randomize",
     parent: document.querySelector(`.player${number}`),
-    event: { type: "click", callback: () => onRandomizeClick(number, player) },
+    event: { type: "click", callback: () => onRandomizeClick(number) },
   });
 }
 

@@ -19,6 +19,6 @@ describe("Human class", () => {
   });
 
   test("type property returns what type of a player the class is", () => {
-    expect(new Human().type).toBe("Real");
+    expect(new Human().type).toBe("human");
   });
 });

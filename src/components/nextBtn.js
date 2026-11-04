@@ -1,4 +1,4 @@
-import { onNextClick } from "../handlers/events.js";
+import { onNextClick } from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderNextBtn() {
