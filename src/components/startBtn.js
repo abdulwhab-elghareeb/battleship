@@ -6,7 +6,7 @@ export function renderStartBtn(player) {
 
   createDOMElement({
     elemType: "button",
-    className: "start",
+    class: "start",
     textContent: "Start",
     parent: document.querySelector("#main-container"),
     event: {

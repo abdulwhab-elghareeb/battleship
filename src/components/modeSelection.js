@@ -8,7 +8,7 @@ export function renderModeSelection() {
 
   createDOMElement({
     elemType: "div",
-    className: "mode-select",
+    class: "mode-select",
     parent: mainContainer,
     children: [
       createDOMElement({

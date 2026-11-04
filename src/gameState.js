@@ -44,6 +44,7 @@ export const gameState = (() => {
     mode = "";
     player1Attacked = false;
     player2Attacked = false;
+    isVertical = false;
     turn = "P1";
   };
 

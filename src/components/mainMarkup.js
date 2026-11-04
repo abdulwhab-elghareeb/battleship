@@ -9,22 +9,22 @@ export function renderMainMarkup() {
   mainContainer.append(
     createDOMElement({
       elemType: "h1",
-      className: "result",
+      class: "result",
     }),
     createDOMElement({
       elemType: "div",
-      className: "player player1",
+      class: "player player1",
       children: [
         createDOMElement({
           elemType: "h1",
-          className: "turn",
+          class: "turn",
           textContent: "Player 1",
         }),
       ],
     }),
     createDOMElement({
       elemType: "div",
-      className: "player player2",
+      class: "player player2",
       children: [
         createDOMElement({
           elemType: "h1",

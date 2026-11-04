@@ -6,7 +6,7 @@ export function renderRestartBtn() {
 
   createDOMElement({
     elemType: "button",
-    className: "restart",
+    class: "restart",
     textContent: "Restart",
     parent: document.querySelector("#main-container"),
     event: { type: "click", callback: onRestartClick },

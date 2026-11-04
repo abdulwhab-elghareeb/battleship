@@ -18,7 +18,7 @@ export function renderBoard(playerNumber) {
 
   const gridContainer = createDOMElement({
     elemType: "div",
-    className: "board",
+    class: "board",
   });
   document.querySelector(`.player${playerNumber} h1`).after(gridContainer);
 

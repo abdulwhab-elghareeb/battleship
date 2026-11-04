@@ -13,11 +13,11 @@ export function renderDragContainer(playerNumber) {
 
   const container = createDOMElement({
     elemType: "div",
-    className: "drag-container",
+    class: "drag-container",
     parent: document.querySelector(`.player${playerNumber}`),
   });
-  
-  if(gameState.isVertical) container.classList.add("vertical")
+
+  if (gameState.isVertical) container.classList.add("vertical");
 
   const remainingSizes = getDifferences(
     [5, 4, 3, 3, 2],
@@ -34,7 +34,7 @@ export function renderDragContainer(playerNumber) {
     const size = remainingSizes.shift();
     const grid = createDOMElement({
       elemType: "div",
-      className: `drag-ships ${numbersToWords[size]}`,
+      class: `drag-ships ${numbersToWords[size]}`,
       data: { size: size, id: i },
       draggable: true,
       parent: container,
@@ -52,7 +52,7 @@ export function renderDragContainer(playerNumber) {
 export function renderDirectionToggle(playerNumber) {
   createDOMElement({
     elemType: "button",
-    className: "direction",
+    class: "direction",
     textContent: "Horizontal",
     event: {
       type: "click",

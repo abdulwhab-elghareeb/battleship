@@ -4,7 +4,7 @@ import { createDOMElement } from "../helpers/domHelpers.js";
 export function renderPassDeviceScreen() {
   createDOMElement({
     elemType: "div",
-    className: "pass-device hidden",
+    class: "pass-device hidden",
     parent: document.body,
     children: [
       createDOMElement({
