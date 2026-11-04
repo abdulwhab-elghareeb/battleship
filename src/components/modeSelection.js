@@ -10,26 +10,26 @@ export function renderModeSelection() {
     elemType: "div",
     class: "mode-select",
     parent: mainContainer,
-    children: [
-      createDOMElement({
+    children: createDOMElement(
+      {
         elemType: "h1",
         textContent: "Choose a mode",
-      }),
-      createDOMElement({
+      },
+      {
         elemType: "div",
-        children: [
-          createDOMElement({
+        children: createDOMElement(
+          {
             elemType: "button",
             textContent: "Player vs Player",
             event: { type: "click", callback: loadMultiMode },
-          }),
-          createDOMElement({
+          },
+          {
             elemType: "button",
             textContent: "Player vs CPU",
             event: { type: "click", callback: loadSingleMode },
-          }),
-        ],
-      }),
-    ],
+          },
+        ),
+      },
+    ),
   });
 }

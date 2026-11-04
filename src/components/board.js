@@ -52,9 +52,11 @@ export function renderBoard(playerNumber) {
 
   for (let row = 0; row < 10; row++) {
     for (let col = 0; col < 10; col++) {
-      const grid = createDOMElement({ elemType: "div", parent: gridContainer });
-      grid.dataset.row = row;
-      grid.dataset.col = col;
+      const grid = createDOMElement({
+        elemType: "div",
+        parent: gridContainer,
+        data: { row, col },
+      });
 
       if (missedHits.has(JSON.stringify([row, col]))) {
         grid.classList.add("missed");

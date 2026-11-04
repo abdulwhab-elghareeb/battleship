@@ -6,46 +6,40 @@ import { createDOMElement } from "../helpers/domHelpers.js";
 export function renderDragContainer(playerNumber) {
   document.querySelector(`.player${playerNumber} .drag-container`)?.remove();
 
-  const playerGameboard =
-    playerNumber === 1
-      ? gameState.player1.gameboard
-      : gameState.player2.gameboard;
-
-  const container = createDOMElement({
-    elemType: "div",
-    class: "drag-container",
-    parent: document.querySelector(`.player${playerNumber}`),
-  });
-
-  if (gameState.isVertical) container.classList.add("vertical");
-
-  const remainingSizes = getDifferences(
-    [5, 4, 3, 3, 2],
-    playerGameboard.currentShipSizes,
-  );
-  const numbersToWords = {
+  const NUMBERS_TO_WORDS = {
     2: "two",
     3: "three",
     4: "four",
     5: "five",
   };
 
+  const playerGameboard =
+    playerNumber === 1
+      ? gameState.player1.gameboard
+      : gameState.player2.gameboard;
+
+  const remainingSizes = getDifferences(
+    [5, 4, 3, 3, 2],
+    playerGameboard.currentShipSizes,
+  );
+
+  const container = createDOMElement({
+    elemType: "div",
+    class: gameState.isVertical ? "drag-container vertical" : "drag-container",
+    parent: document.querySelector(`.player${playerNumber}`),
+  });
+
   for (let i = 1; i <= 5 - playerGameboard.shipCount; i++) {
     const size = remainingSizes.shift();
-    const grid = createDOMElement({
+    createDOMElement({
       elemType: "div",
-      class: `drag-ships ${numbersToWords[size]}`,
+      class: `drag-ships ${NUMBERS_TO_WORDS[size]}`,
       data: { size: size, id: i },
       draggable: true,
+      styleHeight: gameState.isVertical ? `${size * 55}px` : "55px",
+      styleWidth: gameState.isVertical ? "55px" : `${size * 55}px`,
       parent: container,
     });
-    if (gameState.isVertical) {
-      grid.style.height = `${size * 55}px`;
-      grid.style.width = "55px";
-    } else {
-      grid.style.width = `${size * 55}px`;
-      grid.style.height = "55px";
-    }
   }
 }
 

@@ -21,6 +21,8 @@ export function createDOMElement(...objects) {
     event: (elem, val) =>
       elem.addEventListener(val.type, val.callback, { ...val.options }),
     children: (elem, val) => elem.append(...val),
+    styleHeight: (elem, val) => (elem.style.height = val),
+    styleWidth: (elem, val) => (elem.style.width = val),
   };
 
   objects = objects.map((obj) => {

@@ -6,17 +6,17 @@ export function renderPassDeviceScreen() {
     elemType: "div",
     class: "pass-device hidden",
     parent: document.body,
-    children: [
-      createDOMElement({
+    children: createDOMElement(
+      {
         elemType: "h1",
         textContent: "Pass the device to the other player",
-      }),
-      createDOMElement({
+      },
+      {
         elemType: "button",
         textContent: "continue",
         event: { type: "click", callback: onContinueClick },
-      }),
-    ],
+      },
+    ),
   });
 }
 
