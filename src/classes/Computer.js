@@ -10,11 +10,10 @@ export class Computer extends Player {
   attackRandomPlace(against) {
     let gameboard = against.gameboard;
 
-    const directHits = [...gameboard.directHits];
-    let lastHit;
-    if (directHits.length) {
-      lastHit = JSON.parse(directHits.pop());
-    }
+    const directHits = [...gameboard.directHits]
+      .map((cord) => JSON.parse(cord))
+      .filter((cord) => !gameboard.board[cord[0]][cord[1]].isSunk());
+    let lastHit = directHits.pop;
 
     while (lastHit) {
       if (gameboard.isValidAttack([lastHit[0], lastHit[1] + 1])) {
@@ -30,7 +29,7 @@ export class Computer extends Player {
         gameboard.receiveAttack([lastHit[0] - 1, lastHit[1]]);
         return;
       } else {
-        lastHit = directHits.length ? JSON.parse(directHits.pop()) : undefined;
+        lastHit = directHits.pop();
       }
     }
 
