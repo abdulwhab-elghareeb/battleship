@@ -1,14 +1,4 @@
 import { renderPlayersBoard } from "../components/board.js";
-import { renderRestartBtn } from "../components/restartBtn.js";
-import {
-  renderRandomizeShipsBtn,
-  renderResetShipsBtn,
-} from "../components/randomizeShips.js";
-import { renderStartBtn } from "../components/startBtn.js";
-import {
-  renderDirectionToggle,
-  renderDragContainer,
-} from "../components/drag.js";
 import { gameState } from "../gameState.js";
 import { hidePassDevice, showPassDevice } from "../components/passDevice.js";
 import { renderNextBtn } from "../components/nextBtn.js";

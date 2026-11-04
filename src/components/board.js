@@ -7,7 +7,6 @@ export function renderBoard(playerNumber) {
   document.querySelector(`.player${playerNumber} .board`)?.remove();
 
   const player = playerNumber === 1 ? gameState.player1 : gameState.player2;
-  const against = playerNumber === 1 ? gameState.player2 : gameState.player1;
   const isPlayerTurn = gameState.playerTurn === playerNumber;
   const againstPlayerAttacked =
     playerNumber === 1 ? gameState.player2Attacked : gameState.player1Attacked;
