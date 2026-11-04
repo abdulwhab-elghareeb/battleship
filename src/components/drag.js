@@ -32,6 +32,7 @@ export function renderDragContainer(playerNumber) {
     parent: document.querySelector(`.player${playerNumber}`),
   });
 
+  if (remainingSizes.length === 0) return container.remove();
   for (let i = 1; i <= 5 - playerGameboard.shipCount; i++) {
     const size = remainingSizes.shift();
     createDOMElement({

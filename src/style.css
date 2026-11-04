@@ -98,11 +98,10 @@ body {
 
   display: grid;
   grid-template-areas:
-    "h1 h1"
-    "board board"
-    "drag drag"
-    "random reset";
-  grid-auto-columns: min-content;
+    "h1 h1 h1"
+    "board board board"
+    "drag drag drag"
+    "random reset direction";
 }
 
 .player h1 {
@@ -120,10 +119,12 @@ body {
 
   cursor: crosshair;
   border: 2px solid rgb(77, 77, 165);
+  border-radius: 5px;
 }
 
 .board > div {
   border: 1px solid pink;
+  border-radius: 5px;
   background-color: rgb(77, 77, 165);
 
   &:hover {
@@ -176,6 +177,10 @@ button {
   left: 47%;
 }
 
+.drag-ships {
+  border-radius: 5px;
+}
+
 .drag-container {
   grid-area: drag;
 
@@ -184,25 +189,35 @@ button {
   align-content: center;
   justify-content: center;
 
-  padding: 3px 0;
+  padding: 5px 0;
   gap: 3px;
   margin-bottom: 5px;
 
   border: 2px solid rgb(77, 77, 165);
+  border-radius: 3px 3px 10px 10px;
 }
 
 .drag-container.vertical {
   justify-content: space-evenly;
 }
 
+.randomize,
+.reset-ships,
+.direction {
+  justify-self: center;
+  margin-top: 2px;
+}
+
 .randomize {
   grid-area: random;
-  justify-self: end;
-  margin-right: 3px;
 }
 
 .reset-ships {
   grid-area: reset;
+}
+
+.direction {
+  grid-area: direction;
 }
 
 .drag-ships {

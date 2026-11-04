@@ -18,10 +18,7 @@ export function applyDragAndDrop(playerNumber) {
 
   draggableElements.forEach((dragElem) => {
     dragElem.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData(
-        "text/javascript",
-        JSON.stringify([e.target.dataset.size, e.target.dataset.id]),
-      );
+      e.dataTransfer.setData("text/plain", e.target.dataset.size);
     });
   });
 
@@ -35,16 +32,13 @@ export function applyDragAndDrop(playerNumber) {
   function dropHandler(e) {
     e.preventDefault();
 
-    const data = JSON.parse(e.dataTransfer.getData("text/javascript"));
-    const size = +data[0];
-    const id = data[1];
+    const size = +e.dataTransfer.getData("text/plain");
     const gameboard = player.gameboard;
     const oldShipCount = gameboard.shipCount;
 
     gameboard.placeShip(size, [row, col], isVertical);
     if (gameboard.shipCount > oldShipCount) {
-      renderPlayersBoard(playerNumber);
-      document.querySelector(`[data-id="${id}"]`).remove();
+      loadDrag(playerNumber);
     }
   }
   playerBoard.addEventListener("drop", dropHandler);

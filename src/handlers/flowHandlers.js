@@ -29,10 +29,9 @@ export function startGame(e, player) {
       renderPlayersBoard("both");
   }
 
-  document.querySelector(".randomize").remove();
-  document.querySelector(".reset-ships").remove();
-  document.querySelector(".drag-container").remove();
-  document.querySelector(".direction").remove();
+  document.querySelector(".randomize")?.remove();
+  document.querySelector(".reset-ships")?.remove();
+  document.querySelector(".direction")?.remove();
   document.querySelector(".result").textContent = "";
 }
 export function hidePassDeviceScreen() {
