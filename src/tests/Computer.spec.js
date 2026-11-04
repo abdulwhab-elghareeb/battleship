@@ -34,7 +34,7 @@ describe("Computer class", () => {
     ).toBe(true);
   });
 
-  test("it tries hitting adjacent slots after hitting a ship", () => {
+  test("Tries hitting adjacent slots after hitting a ship", () => {
     const testComputer = new Computer();
     const enemy = new Computer();
     enemy.gameboard.placeShip(4, [0, 5]);
@@ -44,7 +44,7 @@ describe("Computer class", () => {
     expect(enemy.gameboard.directHits).toContain(JSON.stringify([0, 6]));
   });
 
-  test("type property returns what type of a player the class is", () => {
+  test("Type property returns what type of a player the class is", () => {
     expect(new Computer().type).toBe("computer");
   });
 });

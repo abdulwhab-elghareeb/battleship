@@ -8,11 +8,11 @@ describe("Gameboard class", () => {
 
   const testBoard = new Gameboard();
 
-  test("creates 10x10 gameboard", () => {
+  test("Creates 10x10 gameboard", () => {
     expect(testBoard.board.flat()).toHaveLength(100);
   });
 
-  test("places ships horizontally and vertically", () => {
+  test("Places ships horizontally and vertically", () => {
     testBoard.placeShip(6, [0, 0]);
     testBoard.placeShip(6, [1, 0], true);
     expect(testBoard.board[0][0]).toBeTruthy();
@@ -20,7 +20,7 @@ describe("Gameboard class", () => {
     expect(testBoard.board[3][0]).toBeTruthy();
   });
 
-  test("handles received attacks correctly", () => {
+  test("Handles received attacks correctly", () => {
     testBoard.placeShip(2, [2, 1]);
     testBoard.receiveAttack([2, 1]);
     testBoard.receiveAttack([2, 2]);
@@ -31,12 +31,12 @@ describe("Gameboard class", () => {
     expect(testBoard.missedHits).toContain(JSON.stringify([2, 5]));
   });
 
-  test("chicks if all ships are sunk", () => {
+  test("Chicks if all ships are sunk", () => {
     expect(testBoard.areAllShipsSunk()).toBe(false);
     expect(new Gameboard().areAllShipsSunk()).toBe(true);
   });
 
-  test("chicks if a move is valid or not", () => {
+  test("Chicks if a move is valid or not", () => {
     const testGameboard = new Gameboard();
     testGameboard.receiveAttack([1, 2]);
 
@@ -52,7 +52,7 @@ describe("Gameboard class", () => {
     expect(testGameboard.shipCount).toBe(1);
   });
 
-  test("able to place ships randomly", () => {
+  test("Able to place ships randomly", () => {
     const testGameboard = new Gameboard();
     testGameboard.randomizeShips();
 
@@ -73,7 +73,7 @@ describe("Gameboard class", () => {
     expect(testGameboard.directHits).not.toContain(JSON.stringify([1, 2]));
   });
 
-  test("stores the ship sizes", () => {
+  test("Stores the ship sizes", () => {
     const testGameboard = new Gameboard();
     testGameboard.placeShip(5, [1, 2]);
     testGameboard.placeShip(2, [3, 4], true);

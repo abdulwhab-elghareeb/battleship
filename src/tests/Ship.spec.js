@@ -6,7 +6,7 @@ describe("Ship class", () => {
     expect(Ship).toBeDefined();
   });
 
-  test("hit and isSunk methods work as expected", () => {
+  test("Hit and isSunk methods work as expected", () => {
     const testShip = new Ship(4);
     testShip.hit();
     testShip.hit();
