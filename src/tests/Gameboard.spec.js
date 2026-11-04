@@ -12,10 +12,12 @@ describe("Gameboard class", () => {
     expect(testBoard.board.flat()).toHaveLength(100);
   });
 
-  test("places ships correctly", () => {
+  test("places ships horizontally and vertically", () => {
     testBoard.placeShip(6, [0, 0]);
+    testBoard.placeShip(6, [1, 0], true);
     expect(testBoard.board[0][0]).toBeTruthy();
     expect(testBoard.board[0][6]).toBeFalsy();
+    expect(testBoard.board[3][0]).toBeTruthy();
   });
 
   test("handles received attacks correctly", () => {
@@ -63,6 +65,7 @@ describe("Gameboard class", () => {
     expect(new Gameboard().isValidPlacement(2, [7, 7])).toBe(true);
     expect(new Gameboard().isValidPlacement(6, [-1, 0])).toBe(false);
     expect(new Gameboard().isValidPlacement(6, [4, -4])).toBe(false);
+    expect(new Gameboard().isValidPlacement(6, [6, 1], true)).toBe(false);
   });
 
   test("createNewBoard function replaces the old board with a new one", () => {

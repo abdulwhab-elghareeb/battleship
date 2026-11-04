@@ -23,21 +23,35 @@ export class Gameboard {
     return this.#shipCount;
   }
 
-  placeShip(shipSize, [row, col]) {
+  placeShip(shipSize, [row, col], isVertical = false) {
     const ship = new Ship(shipSize);
 
-    for (let i = 0; i < shipSize; i++) {
-      this.#board[row][col + i] = ship;
+    if (isVertical) {
+      for (let i = 0; i < shipSize; i++) {
+        this.#board[row + i][col] = ship;
+      }
+    } else {
+      for (let i = 0; i < shipSize; i++) {
+        this.#board[row][col + i] = ship;
+      }
     }
 
     this.#shipCount++;
   }
 
-  isValidPlacement(shipSize, [row, col]) {
-    if (col + shipSize > 9 || row < 0 || col < 0) return false;
+  isValidPlacement(shipSize, [row, col], isVertical = false) {
+    if (isVertical && row + shipSize > 9) return false;
+    if (!isVertical && col + shipSize > 9) return false;
+    if (row < 0 || col < 0 || row > 9 || col > 9) return false;
 
-    for (let i = 0; i < shipSize; i++) {
-      if (this.#board[row][col + i]) return false;
+    if (isVertical) {
+      for (let i = 0; i < shipSize; i++) {
+        if (this.#board[row + i][col]) return false;
+      }
+    } else {
+      for (let i = 0; i < shipSize; i++) {
+        if (this.#board[row][col + i]) return false;
+      }
     }
 
     return true;
@@ -54,9 +68,10 @@ export class Gameboard {
         Math.floor(Math.random() * 10),
         Math.floor(Math.random() * 10),
       ];
+      const vertical = Math.floor(Math.random() * 2) === 0 ? false : true;
 
-      if (this.isValidPlacement(sizes[0], randomCord)) {
-        this.placeShip(sizes.shift(), randomCord);
+      if (this.isValidPlacement(sizes[0], randomCord, vertical)) {
+        this.placeShip(sizes.shift(), randomCord, vertical);
       }
     }
   }
