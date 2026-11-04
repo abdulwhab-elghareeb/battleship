@@ -13,21 +13,17 @@ export class Computer extends Player {
     const directHits = [...gameboard.directHits]
       .map((cord) => JSON.parse(cord))
       .filter((cord) => !gameboard.board[cord[0]][cord[1]].isSunk());
-    let lastHit = directHits.pop;
+    let lastHit = directHits.pop();
 
     while (lastHit) {
       if (gameboard.isValidAttack([lastHit[0], lastHit[1] + 1])) {
-        gameboard.receiveAttack([lastHit[0], lastHit[1] + 1]);
-        return;
+        return gameboard.receiveAttack([lastHit[0], lastHit[1] + 1]);
       } else if (gameboard.isValidAttack([lastHit[0], lastHit[1] - 1])) {
-        gameboard.receiveAttack([lastHit[0], lastHit[1] - 1]);
-        return;
+        return gameboard.receiveAttack([lastHit[0], lastHit[1] - 1]);
       } else if (gameboard.isValidAttack([lastHit[0] + 1, lastHit[1]])) {
-        gameboard.receiveAttack([lastHit[0] + 1, lastHit[1]]);
-        return;
+        return gameboard.receiveAttack([lastHit[0] + 1, lastHit[1]]);
       } else if (gameboard.isValidAttack([lastHit[0] - 1, lastHit[1]])) {
-        gameboard.receiveAttack([lastHit[0] - 1, lastHit[1]]);
-        return;
+        return gameboard.receiveAttack([lastHit[0] - 1, lastHit[1]]);
       } else {
         lastHit = directHits.pop();
       }

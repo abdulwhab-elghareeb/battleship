@@ -30,9 +30,7 @@ export class Gameboard {
   }
 
   placeShip(shipSize, [row, col], isVertical = false) {
-    const ship = new Ship(shipSize);
     let cords = [];
-
     if (isVertical) {
       for (let i = 0; i < shipSize; i++) {
         if (row + i > 9 || this.#board[row + i][col]) {
@@ -72,6 +70,7 @@ export class Gameboard {
     }
 
     if (cords.length) {
+      const ship = new Ship(shipSize);
       cords.forEach((cord) => {
         this.#board[cord[0]][cord[1]] = ship;
       });
