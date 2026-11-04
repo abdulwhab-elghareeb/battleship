@@ -271,3 +271,10 @@ button {
 .turn::after {
   content: "←";
 }
+
+.return {
+  width: fit-content;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}

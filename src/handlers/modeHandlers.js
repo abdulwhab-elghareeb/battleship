@@ -12,6 +12,7 @@ import {
 } from "../components/randomizeShips.js";
 import { renderStartBtn } from "../components/startBtn.js";
 import { gameState } from "../classes/GameState.js";
+import { renderReturnToModeSelection } from "../components/returnToMode.js";
 
 export function loadShipPlacingContent(playerNumber) {
   renderDragContainer(playerNumber);
@@ -20,6 +21,7 @@ export function loadShipPlacingContent(playerNumber) {
   renderRandomizeShipsBtn(playerNumber);
   renderResetShipsBtn(playerNumber);
   renderStartBtn(playerNumber);
+  renderReturnToModeSelection();
 }
 
 export function loadSingleMode() {
