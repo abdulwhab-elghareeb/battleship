@@ -1,4 +1,4 @@
-import { gameState } from "../gameState.js";
+import { gameState } from "../classes/GameState.js";
 import { startGame } from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 

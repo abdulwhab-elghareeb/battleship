@@ -1,15 +1,17 @@
 import { receiveAttack } from "../handlers/attackHandler.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 import { applyDragAndDrop } from "../handlers/shipPlacingHandlers.js";
-import { gameState } from "../gameState.js";
+import { gameState } from "../classes/GameState.js";
 
 export function renderBoard(playerNumber) {
   document.querySelector(`.player${playerNumber} .board`)?.remove();
 
   const player = playerNumber === 1 ? gameState.player1 : gameState.player2;
-  const isPlayerTurn = gameState.playerTurn === playerNumber;
+  const isPlayerTurn = gameState.currentTurn === playerNumber;
   const againstPlayerAttacked =
-    playerNumber === 1 ? gameState.player2Attacked : gameState.player1Attacked;
+    playerNumber === 1
+      ? gameState.didPlayer2Attack
+      : gameState.didPlayer1Attack;
 
   const gridContainer = createDOMElement({
     elemType: "div",
@@ -18,14 +20,14 @@ export function renderBoard(playerNumber) {
   document.querySelector(`.player${playerNumber} h1`).after(gridContainer);
 
   switch (gameState.phase) {
-    case "STARTED":
+    case "started":
       if (player.type === "computer") {
         gridContainer.addEventListener("click", (e) =>
           receiveAttack(e, playerNumber),
         );
       } else {
         if (
-          gameState.mode === "Multi" &&
+          gameState.mode === "multi" &&
           !againstPlayerAttacked &&
           !isPlayerTurn
         ) {
@@ -36,7 +38,7 @@ export function renderBoard(playerNumber) {
       }
       break;
 
-    case "NOT_STARTED":
+    case "notStarted":
       if (player.type === "human") {
         applyDragAndDrop(playerNumber);
       }

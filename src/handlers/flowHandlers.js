@@ -1,5 +1,5 @@
 import { renderPlayersBoard } from "../components/board.js";
-import { gameState } from "../gameState.js";
+import { createNewState, gameState } from "../classes/GameState.js";
 import { hidePassDevice, showPassDevice } from "../components/passDevice.js";
 import { renderNextBtn } from "../components/nextBtn.js";
 import { renderModeSelection } from "../components/modeSelection.js";
@@ -7,14 +7,14 @@ import { updateVisualTurn } from "../components/mainMarkup.js";
 import { loadShipPlacingContent } from "./modeHandlers.js";
 
 export function startGame(e, player) {
-  if (gameState.phase !== "NOT_STARTED" || player.gameboard.shipCount < 5) {
+  if (gameState.phase !== "notStarted" || player.gameboard.shipCount < 5) {
     return;
   }
 
   switch (gameState.mode) {
-    case "Multi":
-      if (gameState.playerTurn !== 1) {
-        gameState.nextPhase();
+    case "multi":
+      if (gameState.currentTurn !== 1) {
+        gameState.toNextPhase();
         renderNextBtn();
         e.target.remove();
       }
@@ -23,8 +23,8 @@ export function startGame(e, player) {
       gameState.swapTurns();
       break;
 
-    case "Single":
-      gameState.nextPhase();
+    case "single":
+      gameState.toNextPhase();
       e.target.remove();
       renderPlayersBoard("both");
   }
@@ -37,7 +37,7 @@ export function startGame(e, player) {
 }
 export function hidePassDeviceScreen() {
   hidePassDevice();
-  if (gameState.phase === "NOT_STARTED") {
+  if (gameState.phase === "notStarted") {
     loadShipPlacingContent(2);
   }
 
@@ -46,7 +46,7 @@ export function hidePassDeviceScreen() {
 }
 
 export function startNextTurn() {
-  const playerAttacked = gameState[`player${gameState.playerTurn}Attacked`];
+  const playerAttacked = gameState[`didPlayer${gameState.currentTurn}Attack`];
   if (playerAttacked) {
     gameState.swapTurns();
     showPassDevice();
@@ -54,6 +54,6 @@ export function startNextTurn() {
 }
 
 export function restartGame() {
-  gameState.reset();
+  createNewState();
   renderModeSelection();
 }

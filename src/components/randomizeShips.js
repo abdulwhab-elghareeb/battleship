@@ -1,7 +1,7 @@
 import {
-  onRandomizeClick,
-  onResetShipsClick,
-} from "../handlers/flowHandlers.js";
+  randomizeBoardShips,
+  resetShips,
+} from "../handlers/shipPlacingHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderRandomizeShipsBtn(number) {
@@ -10,7 +10,7 @@ export function renderRandomizeShipsBtn(number) {
     class: "randomize",
     textContent: "Randomize",
     parent: document.querySelector(`.player${number}`),
-    event: { type: "click", callback: () => onRandomizeClick(number) },
+    event: { type: "click", callback: () => randomizeBoardShips(number) },
   });
 }
 
@@ -20,6 +20,6 @@ export function renderResetShipsBtn(playerNumber) {
     class: "reset-ships",
     textContent: "Reset",
     parent: document.querySelector(`.player${playerNumber}`),
-    event: { type: "click", callback: () => onResetShipsClick(playerNumber) },
+    event: { type: "click", callback: () => resetShips(playerNumber) },
   });
 }

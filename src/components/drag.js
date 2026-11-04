@@ -1,5 +1,8 @@
-import { gameState } from "../gameState.js";
-import { onDirectionClick } from "../handlers/flowHandlers.js";
+import { gameState } from "../classes/GameState.js";
+import {
+  changeShipsDirection,
+  isVertical,
+} from "../handlers/shipPlacingHandlers.js";
 import { getDifferences } from "../helpers/arrayHelpers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
@@ -25,7 +28,7 @@ export function renderDragContainer(playerNumber) {
 
   const container = createDOMElement({
     elemType: "div",
-    class: gameState.isVertical ? "drag-container vertical" : "drag-container",
+    class: isVertical ? "drag-container vertical" : "drag-container",
     parent: document.querySelector(`.player${playerNumber}`),
   });
 
@@ -36,8 +39,8 @@ export function renderDragContainer(playerNumber) {
       class: `drag-ships ${NUMBERS_TO_WORDS[size]}`,
       data: { size: size, id: i },
       draggable: true,
-      styleHeight: gameState.isVertical ? `${size * 55}px` : "55px",
-      styleWidth: gameState.isVertical ? "55px" : `${size * 55}px`,
+      styleHeight: isVertical ? `${size * 55}px` : "55px",
+      styleWidth: isVertical ? "55px" : `${size * 55}px`,
       parent: container,
     });
   }
@@ -50,7 +53,7 @@ export function renderDirectionToggle(playerNumber) {
     textContent: "Horizontal",
     event: {
       type: "click",
-      callback: (e) => onDirectionClick(e, playerNumber),
+      callback: (e) => changeShipsDirection(e, playerNumber),
     },
     parent: document.querySelector(`.player${playerNumber}`),
   });

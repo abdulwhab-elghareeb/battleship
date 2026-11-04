@@ -1,6 +1,6 @@
 import { renderPlayersBoard } from "../components/board.js";
 import { renderRestartBtn } from "../components/restartBtn.js";
-import { gameState } from "../gameState.js";
+import { gameState } from "../classes/GameState.js";
 
 export function receiveAttack(e, toBeAttackedNumber) {
   if (e.target.parentNode.className !== "board") return;
@@ -26,12 +26,10 @@ export function receiveAttack(e, toBeAttackedNumber) {
   }
 
   if (toBeAttackedNumber === 2) {
-    gameState.player1Attacked = true;
-    gameState.player2Attacked = false;
+    gameState.setPlayer1AsAttacked();
     renderPlayersBoard(2);
   } else {
-    gameState.player2Attacked = true;
-    gameState.player1Attacked = false;
+    gameState.setPlayer2AsAttacked();
     renderPlayersBoard(1);
   }
 }
@@ -45,6 +43,7 @@ function checkWinCondition(player1, player2) {
     return;
   }
 
-  gameState.nextPhase();
+  gameState.toNextPhase();
   renderRestartBtn(player1);
+  document.querySelector(".next")?.remove();
 }

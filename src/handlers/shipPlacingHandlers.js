@@ -1,6 +1,8 @@
 import { renderPlayersBoard } from "../components/board.js";
 import { renderDragContainer } from "../components/drag.js";
-import { gameState } from "../gameState.js";
+import { gameState } from "../classes/GameState.js";
+
+export let isVertical = false;
 
 export function applyDragAndDrop(playerNumber) {
   let row = 0;
@@ -39,7 +41,7 @@ export function applyDragAndDrop(playerNumber) {
     const gameboard = player.gameboard;
     const oldShipCount = gameboard.shipCount;
 
-    gameboard.placeShip(size, [row, col], gameState.isVertical);
+    gameboard.placeShip(size, [row, col], isVertical);
     if (gameboard.shipCount > oldShipCount) {
       renderPlayersBoard(playerNumber);
       document.querySelector(`[data-id="${id}"]`).remove();
@@ -48,20 +50,20 @@ export function applyDragAndDrop(playerNumber) {
   playerBoard.addEventListener("drop", dropHandler);
 }
 
-export function onRandomizeClick(number) {
+export function randomizeBoardShips(number) {
   const player = number === 1 ? gameState.player1 : gameState.player2;
   player.gameboard.randomizeShips();
   loadDrag(number);
 }
 
-export function onResetShipsClick(playerNumber) {
+export function resetShips(playerNumber) {
   const player = playerNumber === 1 ? gameState.player1 : gameState.player2;
   player.gameboard.createNewBoard();
   loadDrag(playerNumber);
 }
 
-export function onDirectionClick(e, playerNumber) {
-  gameState.isVertical = gameState.isVertical === true ? false : true;
+export function changeShipsDirection(e, playerNumber) {
+  isVertical = isVertical === false ? true : false;
   e.target.textContent =
     e.target.textContent === "Horizontal" ? "Vertical" : "Horizontal";
   loadDrag(playerNumber);

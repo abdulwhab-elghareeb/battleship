@@ -5,7 +5,7 @@ export function renderNextBtn() {
   createDOMElement({
     elemType: "button",
     class: "next",
-    textContent: "Next",
+    textContent: "Next Turn",
     event: { type: "click", callback: startNextTurn },
     parent: document.querySelector("#main-container"),
   });

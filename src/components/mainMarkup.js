@@ -1,4 +1,4 @@
-import { gameState } from "../gameState.js";
+import { gameState } from "../classes/GameState.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderMainMarkup() {
@@ -36,7 +36,7 @@ export function renderMainMarkup() {
 }
 
 export function updateVisualTurn() {
-  const currTurn = gameState.playerTurn;
+  const currTurn = gameState.currentTurn;
   const nextTurn = currTurn === 1 ? 2 : 1;
   document.querySelector(`.player${currTurn} h1`).classList.add("turn");
   document.querySelector(`.player${nextTurn} h1`).classList.remove("turn");
