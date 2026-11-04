@@ -23,6 +23,12 @@ export class Computer extends Player {
       } else if (gameboard.isValidAttack([lastHit[0], lastHit[1] - 1])) {
         gameboard.receiveAttack([lastHit[0], lastHit[1] - 1]);
         return;
+      } else if (gameboard.isValidAttack([lastHit[0] + 1, lastHit[1]])) {
+        gameboard.receiveAttack([lastHit[0] + 1, lastHit[1]]);
+        return;
+      } else if (gameboard.isValidAttack([lastHit[0] - 1, lastHit[1]])) {
+        gameboard.receiveAttack([lastHit[0] - 1, lastHit[1]]);
+        return;
       } else {
         lastHit = directHits.length ? JSON.parse(directHits.pop()) : undefined;
       }
