@@ -2,7 +2,7 @@ import { renderPlayersBoard } from "../components/board.js";
 import { renderRestartBtn } from "../components/restartBtn.js";
 import { gameState } from "../gameState.js";
 
-export function onAttack(e, toBeAttackedNumber) {
+export function receiveAttack(e, toBeAttackedNumber) {
   if (e.target.parentNode.className !== "board") return;
 
   const toBeAttacked =

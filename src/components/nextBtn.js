@@ -1,4 +1,4 @@
-import { onNextClick } from "../handlers/flowHandlers.js";
+import { startNextTurn } from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderNextBtn() {
@@ -6,7 +6,7 @@ export function renderNextBtn() {
     elemType: "button",
     class: "next",
     textContent: "Next",
-    event: { type: "click", callback: onNextClick },
+    event: { type: "click", callback: startNextTurn },
     parent: document.querySelector("#main-container"),
   });
 }

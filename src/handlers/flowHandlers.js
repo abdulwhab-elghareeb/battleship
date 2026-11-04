@@ -6,7 +6,7 @@ import { renderModeSelection } from "../components/modeSelection.js";
 import { updateVisualTurn } from "../components/mainMarkup.js";
 import { loadShipPlacingContent } from "./modeHandlers.js";
 
-export function onStartClick(e, player) {
+export function startGame(e, player) {
   if (gameState.phase !== "NOT_STARTED" || player.gameboard.shipCount < 5) {
     return;
   }
@@ -35,7 +35,7 @@ export function onStartClick(e, player) {
   document.querySelector(".direction").remove();
   document.querySelector(".result").textContent = "";
 }
-export function onContinueClick() {
+export function hidePassDeviceScreen() {
   hidePassDevice();
   if (gameState.phase === "NOT_STARTED") {
     loadShipPlacingContent(2);
@@ -45,7 +45,7 @@ export function onContinueClick() {
   updateVisualTurn();
 }
 
-export function onNextClick() {
+export function startNextTurn() {
   const playerAttacked = gameState[`player${gameState.playerTurn}Attacked`];
   if (playerAttacked) {
     gameState.swapTurns();
@@ -53,7 +53,7 @@ export function onNextClick() {
   }
 }
 
-export function onRestartClick() {
+export function restartGame() {
   gameState.reset();
   renderModeSelection();
 }

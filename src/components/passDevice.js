@@ -1,4 +1,4 @@
-import { onContinueClick } from "../handlers/flowHandlers.js";
+import { hidePassDeviceScreen } from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderPassDeviceScreen() {
@@ -14,7 +14,7 @@ export function renderPassDeviceScreen() {
       {
         elemType: "button",
         textContent: "continue",
-        event: { type: "click", callback: onContinueClick },
+        event: { type: "click", callback: hidePassDeviceScreen },
       },
     ),
   });

@@ -1,4 +1,4 @@
-import { onAttack } from "../handlers/attackHandler.js";
+import { receiveAttack } from "../handlers/attackHandler.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 import { applyDragAndDrop } from "../handlers/shipPlacingHandlers.js";
 import { gameState } from "../gameState.js";
@@ -21,7 +21,7 @@ export function renderBoard(playerNumber) {
     case "STARTED":
       if (player.type === "computer") {
         gridContainer.addEventListener("click", (e) =>
-          onAttack(e, playerNumber),
+          receiveAttack(e, playerNumber),
         );
       } else {
         if (
@@ -30,7 +30,7 @@ export function renderBoard(playerNumber) {
           !isPlayerTurn
         ) {
           gridContainer.addEventListener("click", (e) =>
-            onAttack(e, playerNumber),
+            receiveAttack(e, playerNumber),
           );
         }
       }

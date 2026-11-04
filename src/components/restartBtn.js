@@ -1,4 +1,4 @@
-import { onRestartClick } from "../handlers/flowHandlers.js";
+import { restartGame } from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderRestartBtn() {
@@ -9,6 +9,6 @@ export function renderRestartBtn() {
     class: "restart",
     textContent: "Restart",
     parent: document.querySelector("#main-container"),
-    event: { type: "click", callback: onRestartClick },
+    event: { type: "click", callback: restartGame },
   });
 }

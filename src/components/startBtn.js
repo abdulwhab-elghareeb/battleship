@@ -1,5 +1,5 @@
 import { gameState } from "../gameState.js";
-import { onStartClick } from "../handlers/flowHandlers.js";
+import { startGame } from "../handlers/flowHandlers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderStartBtn(playerNumber) {
@@ -12,7 +12,7 @@ export function renderStartBtn(playerNumber) {
     parent: document.querySelector("#main-container"),
     event: {
       type: "click",
-      callback: (e) => onStartClick(e, player),
+      callback: (e) => startGame(e, player),
     },
   });
 }
