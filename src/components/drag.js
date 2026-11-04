@@ -16,6 +16,8 @@ export function renderDragContainer(playerNumber) {
     className: "drag-container",
     parent: document.querySelector(`.player${playerNumber}`),
   });
+  
+  if(gameState.isVertical) container.classList.add("vertical")
 
   const remainingSizes = getDifferences(
     [5, 4, 3, 3, 2],
@@ -38,11 +40,11 @@ export function renderDragContainer(playerNumber) {
       parent: container,
     });
     if (gameState.isVertical) {
-      grid.style.height = `${size * 57}px`;
-      grid.style.width = "57px";
+      grid.style.height = `${size * 55}px`;
+      grid.style.width = "55px";
     } else {
-      grid.style.width = `${size * 57}px`;
-      grid.style.height = "57px";
+      grid.style.width = `${size * 55}px`;
+      grid.style.height = "55px";
     }
   }
 }
