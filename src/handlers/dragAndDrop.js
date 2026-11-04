@@ -34,6 +34,10 @@ export function applyDragAndDrop(player, playerNumber) {
     const size = +data[0];
     const id = data[1];
     const gameboard = player.gameboard;
+    console.log(
+      [row, col],
+      gameboard.isValidPlacement(size, [row, col], gameState.isVertical),
+    );
 
     if (
       gameboard.isValidPlacement(size, [row, col], gameState.isVertical) &&

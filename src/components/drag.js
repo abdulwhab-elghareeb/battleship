@@ -1,5 +1,6 @@
 import { gameState } from "../gameState.js";
 import { onDirectionClick } from "../handlers/events.js";
+import { getDifferences } from "../helpers/arrayHelpers.js";
 import { createDOMElement } from "../helpers/domHelpers.js";
 
 export function renderDragContainer(playerNumber) {
@@ -16,8 +17,9 @@ export function renderDragContainer(playerNumber) {
     parent: document.querySelector(`.player${playerNumber}`),
   });
 
-  const remainingSizes = [5, 4, 3, 3, 2].filter(
-    (size) => !playerGameboard.currentShipSizes.includes(size),
+  const remainingSizes = getDifferences(
+    [5, 4, 3, 3, 2],
+    playerGameboard.currentShipSizes,
   );
   const numbersToWords = {
     2: "two",

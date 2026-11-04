@@ -46,8 +46,8 @@ export class Gameboard {
   }
 
   isValidPlacement(shipSize, [row, col], isVertical = false) {
-    if (isVertical && row + shipSize > 9) return false;
-    if (!isVertical && col + shipSize > 9) return false;
+    if (isVertical && row + shipSize > 10) return false;
+    if (!isVertical && col + shipSize > 10) return false;
     if (row < 0 || col < 0 || row > 9 || col > 9) return false;
 
     if (isVertical) {
