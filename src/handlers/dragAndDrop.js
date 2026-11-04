@@ -34,18 +34,12 @@ export function applyDragAndDrop(player, playerNumber) {
     const size = +data[0];
     const id = data[1];
     const gameboard = player.gameboard;
-    console.log(
-      [row, col],
-      gameboard.isValidPlacement(size, [row, col], gameState.isVertical),
-    );
+    const oldShipCount = gameboard.shipCount;
+    console.log(row, col);
 
-    if (
-      gameboard.isValidPlacement(size, [row, col], gameState.isVertical) &&
-      gameboard.shipCount < 5
-    ) {
-      gameboard.placeShip(size, [row, col], gameState.isVertical);
+    gameboard.placeShip(size, [row, col], gameState.isVertical);
+    if (gameboard.shipCount > oldShipCount) {
       renderPlayersBoard(`p${playerNumber}`);
-
       document.querySelector(`[data-id="${id}"]`).remove();
     }
   }

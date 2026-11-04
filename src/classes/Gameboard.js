@@ -1,3 +1,4 @@
+import { getDifferences } from "../helpers/arrayHelpers.js";
 import { Ship } from "./Ship.js";
 
 export class Gameboard {
@@ -30,55 +31,68 @@ export class Gameboard {
 
   placeShip(shipSize, [row, col], isVertical = false) {
     const ship = new Ship(shipSize);
+    let cords = [];
 
     if (isVertical) {
       for (let i = 0; i < shipSize; i++) {
-        this.#board[row + i][col] = ship;
+        if (row + i > 9 || this.#board[row + i][col]) {
+          cords = [];
+          break;
+        }
+        cords.push([row + i, col]);
+      }
+
+      if (!cords.length) {
+        for (let i = 0; i < shipSize; i++) {
+          if (row - i < 0 || this.#board[row - i][col]) {
+            cords = [];
+            break;
+          }
+          cords.push([row - i, col]);
+        }
       }
     } else {
       for (let i = 0; i < shipSize; i++) {
-        this.#board[row][col + i] = ship;
+        if (col + i > 9 || this.#board[row][col + i]) {
+          cords = [];
+          break;
+        }
+        cords.push([row, col + i]);
+      }
+
+      if (!cords.length) {
+        for (let i = 0; i < shipSize; i++) {
+          if (col - i < 0 || this.#board[row][col - i]) {
+            cords = [];
+            break;
+          }
+          cords.push([row, col - i]);
+        }
       }
     }
 
-    this.#shipCount++;
-    this.#currentShipSizes.push(shipSize);
-  }
-
-  isValidPlacement(shipSize, [row, col], isVertical = false) {
-    if (isVertical && row + shipSize > 10) return false;
-    if (!isVertical && col + shipSize > 10) return false;
-    if (row < 0 || col < 0 || row > 9 || col > 9) return false;
-
-    if (isVertical) {
-      for (let i = 0; i < shipSize; i++) {
-        if (this.#board[row + i][col]) return false;
-      }
-    } else {
-      for (let i = 0; i < shipSize; i++) {
-        if (this.#board[row][col + i]) return false;
-      }
+    if (cords.length) {
+      cords.forEach((cord) => {
+        this.#board[cord[0]][cord[1]] = ship;
+      });
+      this.#shipCount++;
+      this.#currentShipSizes.push(shipSize);
+      return;
     }
-
-    return true;
   }
 
   randomizeShips() {
     this.createNewBoard();
 
-    const sizes = [5, 4, 3, 3, 2];
-
     while (this.#shipCount !== 5) {
+      const sizes = getDifferences([5, 4, 3, 3, 2], this.#currentShipSizes);
       const randomCord = [
         Math.floor(Math.random() * 10),
         Math.floor(Math.random() * 10),
       ];
       const vertical = Math.floor(Math.random() * 2) === 0 ? false : true;
 
-      if (this.isValidPlacement(sizes[0], randomCord, vertical)) {
-        this.#currentShipSizes.push(sizes[0]);
-        this.placeShip(sizes.shift(), randomCord, vertical);
-      }
+      this.placeShip(sizes.shift(), randomCord, vertical);
     }
   }
 

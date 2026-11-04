@@ -60,14 +60,6 @@ describe("Gameboard class", () => {
     expect(testGameboard.shipCount).toBe(5);
   });
 
-  test("checks if ship placement is valid", () => {
-    expect(new Gameboard().isValidPlacement(2, [9, 9])).toBe(false);
-    expect(new Gameboard().isValidPlacement(2, [7, 7])).toBe(true);
-    expect(new Gameboard().isValidPlacement(6, [-1, 0])).toBe(false);
-    expect(new Gameboard().isValidPlacement(6, [4, -4])).toBe(false);
-    expect(new Gameboard().isValidPlacement(6, [6, 1], true)).toBe(false);
-  });
-
   test("createNewBoard function replaces the old board with a new one", () => {
     const testGameboard = new Gameboard();
     testGameboard.placeShip(2, [1, 2]);
