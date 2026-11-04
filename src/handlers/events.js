@@ -5,7 +5,10 @@ import {
   renderResetShipsBtn,
 } from "../components/randomizeShips.js";
 import { renderStartBtn } from "../components/startBtn.js";
-import { renderDragContainer } from "../components/dragContainer.js";
+import {
+  renderDirectionToggle,
+  renderDragContainer,
+} from "../components/drag.js";
 import { gameState } from "../gameState.js";
 import { hidePassDevice, showPassDevice } from "../components/passDevice.js";
 import { renderNextBtn } from "../components/nextBtn.js";
@@ -86,18 +89,21 @@ export function onStartClick(e, player) {
   document.querySelector(".randomize").remove();
   document.querySelector(".reset-ships").remove();
   document.querySelector(".drag-container").remove();
+  document.querySelector(".direction").remove();
   document.querySelector(".result").textContent = "";
 }
 
 export function onRandomizeClick(number, player) {
   player.gameboard.randomizeShips();
   renderPlayersBoard(`p${number}`);
+  renderDragContainer(number);
 }
 
 export function onContinueClick() {
   hidePassDevice();
   if (gameState.phase === "NOT_STARTED") {
     renderDragContainer(2);
+    renderDirectionToggle(2);
     renderRandomizeShipsBtn(2, gameState.player2);
     renderResetShipsBtn(2);
     renderStartBtn(gameState.player2);
@@ -118,6 +124,14 @@ export function onNextClick() {
 export function onResetShipsClick(playerNumber) {
   const player = playerNumber === 1 ? gameState.player1 : gameState.player2;
   player.gameboard.createNewBoard();
+  renderDragContainer(playerNumber);
+  renderPlayersBoard(`p${playerNumber}`);
+}
+
+export function onDirectionClick(e, playerNumber) {
+  gameState.isVertical = gameState.isVertical === true ? false : true;
+  e.target.textContent =
+    e.target.textContent === "Horizontal" ? "Vertical" : "Horizontal";
   renderDragContainer(playerNumber);
   renderPlayersBoard(`p${playerNumber}`);
 }

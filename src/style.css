@@ -201,24 +201,7 @@ button {
   grid-area: reset;
 }
 
-.two {
-  width: calc(2 * 57px);
-}
-
-.three {
-  width: calc(3 * 57px);
-}
-
-.four {
-  width: calc(4 * 57px);
-}
-
-.five {
-  width: calc(5 * 57px);
-}
-
 .drag-ships {
-  height: 57px;
   background-color: rgb(69, 135, 157);
 }
 

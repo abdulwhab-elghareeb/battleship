@@ -80,4 +80,12 @@ describe("Gameboard class", () => {
     expect(testGameboard.board[1][2]).toBeFalsy();
     expect(testGameboard.directHits).not.toContain(JSON.stringify([1, 2]));
   });
+
+  test("stores the ship sizes", () => {
+    const testGameboard = new Gameboard();
+    testGameboard.placeShip(5, [1, 2]);
+    testGameboard.placeShip(2, [3, 4], true);
+    expect(testGameboard.currentShipSizes).toContain(5);
+    expect(testGameboard.currentShipSizes).toContain(2);
+  });
 });

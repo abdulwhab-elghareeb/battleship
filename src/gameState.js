@@ -11,6 +11,7 @@ export const gameState = (() => {
     }
   };
 
+  let isVertical = false;
   let player1Attacked = false;
   let player2Attacked = false;
 
@@ -64,6 +65,7 @@ export const gameState = (() => {
     },
     player1Attacked,
     player2Attacked,
+    isVertical,
     setPlayer,
     swapTurns,
     setMode,

@@ -6,6 +6,7 @@ export class Gameboard {
   #missedHits = new Set();
   #directHits = new Set();
   #shipCount = 0;
+  #currentShipSizes = [];
 
   get board() {
     return this.#board;
@@ -23,6 +24,10 @@ export class Gameboard {
     return this.#shipCount;
   }
 
+  get currentShipSizes() {
+    return this.#currentShipSizes;
+  }
+
   placeShip(shipSize, [row, col], isVertical = false) {
     const ship = new Ship(shipSize);
 
@@ -37,6 +42,7 @@ export class Gameboard {
     }
 
     this.#shipCount++;
+    this.#currentShipSizes.push(shipSize);
   }
 
   isValidPlacement(shipSize, [row, col], isVertical = false) {
@@ -58,8 +64,7 @@ export class Gameboard {
   }
 
   randomizeShips() {
-    this.#board = [...new Array(10)].map(() => new Array(10).fill(0));
-    this.#shipCount = 0;
+    this.createNewBoard();
 
     const sizes = [5, 4, 3, 3, 2];
 
@@ -71,6 +76,7 @@ export class Gameboard {
       const vertical = Math.floor(Math.random() * 2) === 0 ? false : true;
 
       if (this.isValidPlacement(sizes[0], randomCord, vertical)) {
+        this.#currentShipSizes.push(sizes[0]);
         this.placeShip(sizes.shift(), randomCord, vertical);
       }
     }
@@ -81,6 +87,7 @@ export class Gameboard {
     this.#shipCount = 0;
     this.#directHits = new Set();
     this.#missedHits = new Set();
+    this.#currentShipSizes = [];
   }
 
   receiveAttack([row, col]) {

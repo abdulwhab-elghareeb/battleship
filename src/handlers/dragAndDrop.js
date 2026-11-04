@@ -1,4 +1,5 @@
 import { renderPlayersBoard } from "../components/board.js";
+import { gameState } from "../gameState.js";
 
 export function applyDragAndDrop(player, playerNumber) {
   let row = 0;
@@ -23,7 +24,7 @@ export function applyDragAndDrop(player, playerNumber) {
   function dragOverHandler(e) {
     e.preventDefault();
     row = +e.target.dataset.row;
-    col = +e.target.dataset.col - 1;
+    col = +e.target.dataset.col;
   }
   playerBoard.addEventListener("dragover", dragOverHandler);
 
@@ -35,10 +36,10 @@ export function applyDragAndDrop(player, playerNumber) {
     const gameboard = player.gameboard;
 
     if (
-      gameboard.isValidPlacement(size, [row, col]) &&
+      gameboard.isValidPlacement(size, [row, col], gameState.isVertical) &&
       gameboard.shipCount < 5
     ) {
-      gameboard.placeShip(size, [row, col]);
+      gameboard.placeShip(size, [row, col], gameState.isVertical);
       renderPlayersBoard(`p${playerNumber}`);
 
       document.querySelector(`[data-id="${id}"]`).remove();

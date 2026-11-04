@@ -1,7 +1,10 @@
 import { Computer } from "../classes/Computer.js";
 import { Human } from "../classes/Human.js";
 import { renderPlayersBoard } from "../components/board.js";
-import { renderDragContainer } from "../components/dragContainer.js";
+import {
+  renderDirectionToggle,
+  renderDragContainer,
+} from "../components/drag.js";
 import { renderMainMarkup } from "../components/mainMarkup.js";
 import {
   renderRandomizeShipsBtn,
@@ -21,6 +24,8 @@ export function loadSingleMode() {
   gameState.setPlayer(2, computer);
 
   renderDragContainer(1);
+  renderDirectionToggle(1);
+
   renderPlayersBoard("both");
   renderRandomizeShipsBtn(1, player);
   renderResetShipsBtn(1);
@@ -38,6 +43,7 @@ export function loadMultiMode() {
   gameState.setPlayer(2, player2);
 
   renderDragContainer(1);
+  renderDirectionToggle(1);
   renderPlayersBoard("both");
   renderRandomizeShipsBtn(1, player1);
   renderResetShipsBtn(1);
